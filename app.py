@@ -26,7 +26,7 @@ def select_data(sql):
 
 @app.route('/')
 def index():
-    sql="select * from recipes;"
+    sql="select count(course.name), course.name as course_name , recipes.ID as recipes_ID, recipes.name as recipes_name from recipes JOIN course on recipes.ID = course.recipes_ID group by course.name;"
     data = select_data(sql)
     
     return render_template("index.html",

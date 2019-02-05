@@ -1,9 +1,21 @@
-{% extends "base.html" %}
+{% extends "base.html" %} {% block content %}
 
-{% block content %}
 
-<h3>This is a page!</h3>
+<div class="container">
 
-{{ data }}
+    <ul class="collapsible" data-collapsible="accordion">
+        {% for row in data %}
+        <li>
+            <div class="collapsible-header"><i class="material-icons">filter_drama</i>{{ row.course_name }} - ({{ row.count_course }})</div>
+            <div class="collapsible-body"><span>{{ row.recipes_name }}</span>
+                <a href="#" class="btn"> View Recipe</a>
+            </div>
+        </li>
+        {% endfor %}
+    </ul>
+    <br>
+    <a href="#" class="btn"> Add New Recipe</a>
+</div>
 
-{% endblock %}
+
+{{ data }} {% endblock %}

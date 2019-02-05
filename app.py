@@ -25,7 +25,7 @@ def select_data(sql):
 
 @app.route('/')
 def index():
-    
+    # prep data for page
     recieps_sql="select course.name as course_name , recipes.ID as recipes_ID, recipes.name as recipes_name from recipes JOIN course on recipes.ID = course.recipes_ID;"
     recipes_data = select_data(recieps_sql)
     
@@ -37,6 +37,11 @@ def index():
                             course_data = course_data,
                             recipes_data = recipes_data)
 
+@app.route("/recieps/<recipe_ID>/")
+def recipes(recipe_ID):
+    data_sql = ("SELECT * from recipes where ID =" + recipe_ID)
+    data = select_data(data_sql)
+    return render_template("recieps.html", data = data)
     
 if __name__ == '__main__':
     app.run(host=os.environ.get('IP'),

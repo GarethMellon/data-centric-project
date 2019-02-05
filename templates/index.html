@@ -4,7 +4,7 @@
 <div class="container">
     <div class="row">
         <div class="col s12">
-
+            <!-- we are matching courses to their recipes and building the recipes accordion by match -->
             <ul class="collapsible popout" data-collapsible="accordion">
                 {% for course in course_data %}
                 <li>
@@ -13,7 +13,7 @@
                     {% for recipe in recipes_data %} 
                         {% if course.course_name == recipe.course_name: %}
                         <div class="collapsible-body"><span>{{ recipe.recipes_name }}</span>
-                            <a href="#" class="btn"> View Recipe</a>
+                            <a href="{{ url_for('recipes', recipe_ID = recipe.recipes_ID) }}" class="btn"> View Recipe</a>
                         </div>
                         {% else %} 
                         {% endif %} 

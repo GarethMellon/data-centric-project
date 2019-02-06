@@ -1,0 +1,40 @@
+{% extends "base.html" %} {% block content %}
+
+<div class="container">
+    <div class="row">
+        <div class="col s12">
+
+            <div class="row">
+                <div class="col s12">
+                    <ul class="collapsible popout" data-collapsible="accordion">
+                        <li>
+                            <div class="collapsible-header"><i class="material-icons">filter_drama</i>Course List</div>
+                            {% for row in course_list_data %}
+                            <div class="collapsible-body"><span>{{ row.course_list_name }} </span>
+                                <a href="#!" class="secondary-content"><i class = "material-icons">delete</i></a>
+                            </div>
+                            {% endfor %}
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="input-field col s6">
+                    <input value="" id="course_list_name" name="course_list_name" type="text" class="validate">
+                    <label class="active" for="course_list_name">Add new course list name here</label>
+                    <a href="#!" class="secondary-content"><i class = "material-icons">add</i></a>
+                </div>
+            </div>
+
+            <div class="col s12">
+                <div class="row">
+                    <a href="{{url_for('index')}}" class="btn">Back to Homepage</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+{% endblock %}

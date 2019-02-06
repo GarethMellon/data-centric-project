@@ -37,6 +37,7 @@ def index():
                             course_data = course_data,
                             recipes_data = recipes_data)
 
+## Recieps routes and functions
 @app.route("/recieps/<recipe_ID>/")
 def recipes(recipe_ID):
     # prep data for page
@@ -66,7 +67,8 @@ def recipes(recipe_ID):
                             cuisine_data = cuisine_data,
                             course_data = course_data,
                             allergens_data = allergens_data)
-    
+
+## Directions routes and functions
 @app.route("/directions/<recipe_ID>/<direction_ID>/")
 def directions(recipe_ID, direction_ID):
     # prep data for page
@@ -76,7 +78,8 @@ def directions(recipe_ID, direction_ID):
     return render_template("directions.html", 
                             page_title="Directions",
                             directions_data = directions_data)
-                            
+
+## Ingredients routes and functions               
 @app.route("/ingredients/<recipe_ID>/<ingredient_ID>/")
 def ingredients(recipe_ID, ingredient_ID):
     # prep data for page
@@ -87,6 +90,7 @@ def ingredients(recipe_ID, ingredient_ID):
                         page_title="Ingredients",
                         ingredient_data = ingredient_data)
 
+## Course routes and functions
 @app.route("/course/<recipe_ID>/<course_ID>/")
 def course (recipe_ID, course_ID):
     # prep data for page
@@ -101,6 +105,17 @@ def course (recipe_ID, course_ID):
                             course_data = course_data,
                             course_list_data = course_list_data)
 
+@app.route("/course_list")
+def course_list():
+    # prep data for page
+    course_list_sql = "SELECT course_list.ID AS course_list_ID, course_list.name AS course_list_name from course_list;"
+    course_list_data = select_data(course_list_sql)
+    
+    return render_template("course_list.html",
+                            page_title = "Course List",
+                            course_list_data = course_list_data)
+
+## Cuisine routes and functions
 @app.route("/cuisine/<recipe_ID>/<cuisine_ID>/")
 def cuisine (recipe_ID, cuisine_ID):
     # prep data for page
@@ -115,6 +130,17 @@ def cuisine (recipe_ID, cuisine_ID):
                             cuisine_data = cuisine_data,
                             cuisine_list_data = cuisine_list_data)
 
+@app.route("/cuisine_list")
+def cuisine_list():
+    # prep data for page
+    cuisine_list_sql = "SELECT cuisine_list.ID AS cuisine_list_ID, cuisine_list.name AS cuisine_list_name from cuisine_list;"
+    cuisine_list_data = select_data(cuisine_list_sql)
+    
+    return render_template("cuisine_list.html",
+                            page_title = "Course List",
+                            cuisine_list_data = cuisine_list_data)
+                            
+## Allergens routes and functions
 @app.route("/allergens/<recipe_ID>/<allergens_ID>/")
 def allergens (recipe_ID, allergens_ID):
     # prep data for page
@@ -125,8 +151,18 @@ def allergens (recipe_ID, allergens_ID):
     allergens_list_data = select_data(allergens_list_sql)
     
     return render_template("allergens.html",
-                            page_title = "allergens",
+                            page_title = "Allergens",
                             allergens_data = allergens_data,
+                            allergens_list_data = allergens_list_data)
+                            
+@app.route("/allergens_list")
+def allergens_list():
+    # prep data for page
+    allergens_list_sql = "SELECT allergens_list.ID AS allergens_list_ID, allergens_list.name AS allergens_list_name from allergens_list;"
+    allergens_list_data = select_data(allergens_list_sql)
+    
+    return render_template("allergens_list.html",
+                            page_title = "Allergens List",
                             allergens_list_data = allergens_list_data)
                             
 if __name__ == '__main__':

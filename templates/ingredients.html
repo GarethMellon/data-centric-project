@@ -1,0 +1,36 @@
+{% extends "base.html" %} {% block content %}
+
+<div class="container">
+    <div class="row">
+        <div class="col s12">
+
+            {% for row in ingredient_data %}
+            <div class="row">
+                <div class="collection-header">
+                    <h5>{{ row.recipe_name }}</h5>
+                </div>
+                <div class="input-field col s6">
+                    <input value="{{row.ingredients_name}}" id="ingredients_name" name="ingredients_name" type="text" class="validate">
+                    <label class="active" for="ingredients_name">Ingredients Name</label>
+                </div>
+
+                <div class="input-field col s3">
+                    <input value="{{row.ingredient_quantity}}" id="ingredient_quantity" name="ingredient_quantity" type="text" class="validate">
+                    <label class="active" for="ingredient_quantity">Quantity</label>
+                </div>
+
+                <div class="input-field col s3">
+                    <input value="{{row.ingredients_unit_of_measurement}}" id="ingredients_unit_of_measurement" name="ingredients_unit_of_measurement" type="text" class="validate">
+                    <label class="active" for="ingredients_unit_of_measurement">Unit of Measurement</label>
+                </div>
+            </div>
+
+            <a href="#" class="btn">Save</a>
+            <a href="{{url_for('recipes', recipe_ID = row.recipe_ID)}}" class="btn">Back</a> 
+            {% endfor %}
+
+        </div>
+    </div>
+</div>
+
+{% endblock %}

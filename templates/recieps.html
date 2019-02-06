@@ -22,7 +22,7 @@
                 {% endif %}
                 <li class="collection-item">
                     <div>Direction {{ loop.index }} : {{ direction.name }}
-                        <a href="{{ url_for('directions', recipe_ID = recipe.ID, direction_ID = direction.ID) }}" class="secondary-content"><i class="material-icons">edit</i></a>
+                        <a href="{{url_for('directions', recipe_ID = recipe.ID, direction_ID = direction.ID)}}" class="secondary-content"><i class="material-icons">edit</i></a>
                     </div>
                 </li>
                 {% endif %} {% endfor %}
@@ -36,7 +36,7 @@
                 {% endif %}
                 <li class="collection-item">
                     <div>Ingredient {{ loop.index }} : {{ ingredient.name }} {{ ingredient.quantity }} {{ ingredient.unit_of_measurement }}
-                        <a href="#!" class="secondary-content"><i class="material-icons">edit</i></a>
+                        <a href="{{url_for('ingredients', recipe_ID = recipe.ID, ingredient_ID = ingredient.ID)}}" class="secondary-content"><i class="material-icons">edit</i></a>
                     </div>
                 </li>
                 {% endif %} {% endfor %}

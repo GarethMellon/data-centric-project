@@ -76,6 +76,16 @@ def directions(recipe_ID, direction_ID):
     return render_template("directions.html", 
                             page_title="Directions",
                             directions_data = directions_data)
+                            
+@app.route("/ingredients/<recipe_ID>/<ingredient_ID>/")
+def ingredients(recipe_ID, ingredient_ID):
+    
+    ingredients_sql = "SELECT recipes.ID AS recipe_ID, recipes.name AS recipe_name, ingredients.ID AS ingredients_ID, ingredients.name AS ingredients_name, ingredients.quantity AS ingredient_quantity, ingredients.unit_of_measurement AS ingredients_unit_of_measurement FROM recipes JOIN ingredients ON recipes.ID = ingredients.recipes_ID WHERE recipes.ID = " + recipe_ID + " AND ingredients.ID = " + ingredient_ID +";"
+    ingredient_data = select_data(ingredients_sql)
+    
+    return render_template("ingredients.html", 
+                        page_title="Ingredients",
+                        ingredient_data = ingredient_data)
 
 if __name__ == '__main__':
     app.run(host=os.environ.get('IP'),

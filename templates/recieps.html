@@ -63,7 +63,7 @@
                 {% endif %}
                 <li class="collection-item">
                     <div>{{ course.name }}
-                        <a href="#!" class="secondary-content"><i class="material-icons">edit</i></a>
+                        <a href="{{url_for('course', recipe_ID = recipe.ID, course_ID = course.ID)}}" class="secondary-content"><i class="material-icons">edit</i></a>
                     </div>
                 </li>
                 {% endif %} {% endfor %}

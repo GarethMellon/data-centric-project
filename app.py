@@ -79,13 +79,27 @@ def directions(recipe_ID, direction_ID):
                             
 @app.route("/ingredients/<recipe_ID>/<ingredient_ID>/")
 def ingredients(recipe_ID, ingredient_ID):
-    
+    # prep data for page
     ingredients_sql = "SELECT recipes.ID AS recipe_ID, recipes.name AS recipe_name, ingredients.ID AS ingredients_ID, ingredients.name AS ingredients_name, ingredients.quantity AS ingredient_quantity, ingredients.unit_of_measurement AS ingredients_unit_of_measurement FROM recipes JOIN ingredients ON recipes.ID = ingredients.recipes_ID WHERE recipes.ID = " + recipe_ID + " AND ingredients.ID = " + ingredient_ID +";"
     ingredient_data = select_data(ingredients_sql)
     
     return render_template("ingredients.html", 
                         page_title="Ingredients",
                         ingredient_data = ingredient_data)
+
+@app.route("/course/<recipe_ID>/<course_ID>/")
+def course (recipe_ID, course_ID):
+    # prep data for page
+    course_sql = "SELECT recipes.ID AS recipe_ID, recipes.name AS recipe_name, course.ID AS course_ID, course.name AS course_name FROM recipes JOIN course ON recipes.ID = course.recipes_ID WHERE recipes.ID = " + recipe_ID + " AND course.ID = " + course_ID +";"
+    course_data = select_data(course_sql)
+    
+    course_list_sql = "SELECT course_list.ID AS course_list_ID, course_list.name AS course_list_name from course_list;"
+    course_list_data = select_data(course_list_sql)
+    
+    return render_template("course.html",
+                            page_title = "Courses",
+                            course_data = course_data,
+                            course_list_data = course_list_data)
 
 if __name__ == '__main__':
     app.run(host=os.environ.get('IP'),

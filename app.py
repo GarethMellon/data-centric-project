@@ -115,6 +115,20 @@ def cuisine (recipe_ID, cuisine_ID):
                             cuisine_data = cuisine_data,
                             cuisine_list_data = cuisine_list_data)
 
+@app.route("/allergens/<recipe_ID>/<allergens_ID>/")
+def allergens (recipe_ID, allergens_ID):
+    # prep data for page
+    allergens_sql = "SELECT recipes.ID AS recipe_ID, recipes.name AS recipe_name, allergens.ID AS allergens_ID, allergens.name AS allergens_name FROM recipes JOIN allergens ON recipes.ID = allergens.recipes_ID WHERE recipes.ID = " + recipe_ID + " AND allergens.ID = " + allergens_ID +";"
+    allergens_data = select_data(allergens_sql)
+    
+    allergens_list_sql = "SELECT allergens_list.ID AS allergens_list_ID, allergens_list.name AS allergens_list_name from allergens_list;"
+    allergens_list_data = select_data(allergens_list_sql)
+    
+    return render_template("allergens.html",
+                            page_title = "allergens",
+                            allergens_data = allergens_data,
+                            allergens_list_data = allergens_list_data)
+                            
 if __name__ == '__main__':
     app.run(host=os.environ.get('IP'),
         port=int(os.environ.get('PORT')),

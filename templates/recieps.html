@@ -68,7 +68,7 @@
                 </li>
                 {% endif %} {% endfor %}
 
-                <!-- course data insert-->
+                <!-- allergen data insert-->
                 {% for allergen in allergens_data %} {% if recipe.ID == allergen.recipes_ID: %} {% if loop.index == 1: %}
                 <li class="collection-header">
                     <h6>Allergies</h6>
@@ -76,7 +76,7 @@
                 {% endif %}
                 <li class="collection-item">
                     <div>Allergies : {{ allergen.name }}
-                        <a href="#!" class="secondary-content"><i class="material-icons">edit</i></a>
+                        <a href="{{url_for('allergens', recipe_ID = recipe.ID, allergens_ID = allergen.ID)}}" class="secondary-content"><i class="material-icons">edit</i></a>
                     </div>
                 </li>
                 {% endif %} {% endfor %}

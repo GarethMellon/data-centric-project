@@ -101,6 +101,20 @@ def course (recipe_ID, course_ID):
                             course_data = course_data,
                             course_list_data = course_list_data)
 
+@app.route("/cuisine/<recipe_ID>/<cuisine_ID>/")
+def cuisine (recipe_ID, cuisine_ID):
+    # prep data for page
+    cuisine_sql = "SELECT recipes.ID AS recipe_ID, recipes.name AS recipe_name, cuisine.ID AS cuisine_ID, cuisine.name AS cuisine_name FROM recipes JOIN cuisine ON recipes.ID = cuisine.recipes_ID WHERE recipes.ID = " + recipe_ID + " AND cuisine.ID = " + cuisine_ID +";"
+    cuisine_data = select_data(cuisine_sql)
+    
+    cuisine_list_sql = "SELECT cuisine_list.ID AS cuisine_list_ID, cuisine_list.name AS cuisine_list_name from cuisine_list;"
+    cuisine_list_data = select_data(cuisine_list_sql)
+    
+    return render_template("cuisine.html",
+                            page_title = "cuisine",
+                            cuisine_data = cuisine_data,
+                            cuisine_list_data = cuisine_list_data)
+
 if __name__ == '__main__':
     app.run(host=os.environ.get('IP'),
         port=int(os.environ.get('PORT')),

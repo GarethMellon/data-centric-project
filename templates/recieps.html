@@ -22,7 +22,7 @@
                 {% endif %}
                 <li class="collection-item">
                     <div>Direction {{ loop.index }} : {{ direction.name }}
-                        <a href="#!" class="secondary-content"><i class="material-icons">edit</i></a>
+                        <a href="{{ url_for('directions', recipe_ID = recipe.ID, direction_ID = direction.ID) }}" class="secondary-content"><i class="material-icons">edit</i></a>
                     </div>
                 </li>
                 {% endif %} {% endfor %}

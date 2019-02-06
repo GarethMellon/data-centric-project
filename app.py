@@ -1,6 +1,6 @@
 import os
 import pymysql
-from flask import Flask, render_template, request, url_for
+from flask import Flask, render_template, request, url_for, redirect
 
 app = Flask(__name__)
 
@@ -67,6 +67,16 @@ def recipes(recipe_ID):
                             course_data = course_data,
                             allergens_data = allergens_data)
     
+@app.route("/directions/<recipe_ID>/<direction_ID>/")
+def directions(recipe_ID, direction_ID):
+    # prep data for page
+    directions_sql = "SELECT recipes.ID AS recipe_ID, recipes.name AS recipe_name, directions.ID AS direction_ID, directions.name AS direction_name FROM recipes JOIN directions ON recipes.ID = directions.recipes_ID WHERE recipes.ID = " + recipe_ID + " AND directions.ID = " + direction_ID +";"
+    directions_data = select_data(directions_sql)
+    
+    return render_template("directions.html", 
+                            page_title="Directions",
+                            directions_data = directions_data)
+
 if __name__ == '__main__':
     app.run(host=os.environ.get('IP'),
         port=int(os.environ.get('PORT')),

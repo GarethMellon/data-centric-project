@@ -15,6 +15,23 @@
 </head>
 
 <body>
+    <!-- nav bar section-->
+    <nav>
+        <div class="nav-wrapper">
+            <a href="{{url_for('index')}}" class="brand-logo right">Cooking Recieps</a>
+            <a href="#" data-activates="mobile-demo" class="button-collapse"><i class="material-icons">menu</i></a>
+            <ul class="left hide-on-med-and-down">
+                <li><a href="{{url_for('allergens_list')}}">Allergens List</a></li>
+                <li><a href="{{url_for('course_list')}}">Course List</a></li>
+                <li><a href="{{url_for('cuisine_list')}}">Cuisine List</a></li>
+            </ul>
+            <ul class="side-nav" id="mobile-demo">
+                <li><a href="{{url_for('allergens_list')}}">Allergens List</a></li>
+                <li><a href="{{url_for('course_list')}}">Course List</a></li>
+                <li><a href="{{url_for('cuisine_list')}}">Cuisine List</a></li>
+            </ul>
+        </div>
+    </nav>
 
     {% block content %} {% endblock %}
 
@@ -23,8 +40,10 @@
     <script type="text/javascript">
         $(document).ready(function() {
             $('.collapsible').collapsible();
-            
+
             $('select').material_select();
+
+            $(".button-collapse").sideNav();
         });
     </script>
 

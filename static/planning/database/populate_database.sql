@@ -240,3 +240,12 @@ VALUES (3,"Ground Black Pepper");
 
 INSERT INTO course (recipes_ID, name)
 VALUES (3,"Lunch");
+
+INSERT INTO cuisine (recipes_ID, name)
+VALUES (1,"Irish");
+
+INSERT INTO cuisine (recipes_ID, name)
+VALUES (2,"Irish");
+
+INSERT INTO cuisine (recipes_ID, name)
+VALUES (3,"Irish");

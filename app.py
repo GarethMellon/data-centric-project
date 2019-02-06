@@ -39,9 +39,33 @@ def index():
 
 @app.route("/recieps/<recipe_ID>/")
 def recipes(recipe_ID):
-    data_sql = ("SELECT * from recipes where ID =" + recipe_ID)
-    data = select_data(data_sql)
-    return render_template("recieps.html", data = data)
+    # prep data for page
+    recipes_sql = ("SELECT * from recipes where ID =" + recipe_ID)
+    recipes_data = select_data(recipes_sql)
+    
+    directions_sql = ("SELECT * from directions where recipes_ID =" + recipe_ID)
+    directions_data = select_data(directions_sql)
+    
+    ingredients_sql = ("SELECT * from ingredients where recipes_ID =" + recipe_ID)
+    ingredients_data = select_data(ingredients_sql)
+    
+    cuisine_sql = ("SELECT * from cuisine where recipes_ID =" + recipe_ID)
+    cuisine_data = select_data(cuisine_sql)
+    
+    course_sql = ("SELECT * from course where recipes_ID =" + recipe_ID)
+    course_data = select_data(course_sql)
+    
+    allergens_sql = ("SELECT * from allergens where recipes_ID =" + recipe_ID)
+    allergens_data = select_data(allergens_sql)
+    
+    return render_template("recieps.html",
+                            page_title="Edit Recipe",
+                            recipes_data = recipes_data,
+                            directions_data = directions_data,
+                            ingredients_data = ingredients_data,
+                            cuisine_data = cuisine_data,
+                            course_data = course_data,
+                            allergens_data = allergens_data)
     
 if __name__ == '__main__':
     app.run(host=os.environ.get('IP'),

@@ -1,12 +1,94 @@
-{% extends "base.html" %} 
-{% block content %}
+{% extends "base.html" %} {% block content %}
 
 <div class="container">
     <div class="row">
         <div class="col s12">
-<h3>this is a template</h3>
-<br>
-{{ data }}
+
+            {% for recipe in recipes_data %}
+
+            <ul class="collection with-header">
+                <li class="collection-header">
+                    <h4>{{ recipe.name }}</h4>
+                </li>
+
+                <li class="collection-item">
+                    <div>{{ recipe.youtube_link }}<a href="#!" class="secondary-content"><i class="material-icons">edit</i></a></div>
+                </li>
+                <!-- directions data insert-->
+                {% for direction in directions_data %} {% if recipe.ID == direction.recipes_ID: %} {% if loop.index == 1: %}
+                <li class="collection-header">
+                    <h5>Directions</h5>
+                </li>
+                {% endif %}
+                <li class="collection-item">
+                    <div>Direction {{ loop.index }} : {{ direction.name }}
+                        <a href="#!" class="secondary-content"><i class="material-icons">edit</i></a>
+                    </div>
+                </li>
+                {% endif %} {% endfor %}
+
+
+                <!-- ingredients data insert-->
+                {% for ingredient in ingredients_data %} {% if recipe.ID == ingredient.recipes_ID: %} {% if loop.index == 1: %}
+                <li class="collection-header">
+                    <h5>Ingredients</h5>
+                </li>
+                {% endif %}
+                <li class="collection-item">
+                    <div>Ingredient {{ loop.index }} : {{ ingredient.name }} {{ ingredient.quantity }} {{ ingredient.unit_of_measurement }}
+                        <a href="#!" class="secondary-content"><i class="material-icons">edit</i></a>
+                    </div>
+                </li>
+                {% endif %} {% endfor %}
+
+
+                <!-- cuisine data insert-->
+                {% for cuisine in cuisine_data %} {% if recipe.ID == cuisine.recipes_ID: %} {% if loop.index == 1: %}
+                <li class="collection-header">
+                    <h6>Cuisine</h6>
+                </li>
+                {% endif %}
+                <li class="collection-item">
+                    <div>{{ cuisine.name }}
+                        <a href="#!" class="secondary-content"><i class="material-icons">edit</i></a>
+                    </div>
+                </li>
+                {% endif %} {% endfor %}
+
+                <!-- course data insert-->
+                {% for course in course_data %} {% if recipe.ID == course.recipes_ID: %} {% if loop.index == 1: %}
+                <li class="collection-header">
+                    <h6>Course</h6>
+                </li>
+                {% endif %}
+                <li class="collection-item">
+                    <div>{{ course.name }}
+                        <a href="#!" class="secondary-content"><i class="material-icons">edit</i></a>
+                    </div>
+                </li>
+                {% endif %} {% endfor %}
+
+                <!-- course data insert-->
+                {% for allergen in allergens_data %} {% if recipe.ID == allergen.recipes_ID: %} {% if loop.index == 1: %}
+                <li class="collection-header">
+                    <h6>Allergies</h6>
+                </li>
+                {% endif %}
+                <li class="collection-item">
+                    <div>Allergies : {{ allergen.name }}
+                        <a href="#!" class="secondary-content"><i class="material-icons">edit</i></a>
+                    </div>
+                </li>
+                {% endif %} {% endfor %}
+
+            </ul>
+
+            {% endfor %}
+
+            <a href="{{url_for('index')}}" class="btn">Add Directions</a>
+            <a href="{{url_for('index')}}" class="btn">Add Ingredients</a>
+            <a href="{{url_for('index')}}" class="btn">Back</a>
+        </div>
     </div>
 </div>
 

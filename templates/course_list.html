@@ -21,9 +21,13 @@
 
             <div class="row">
                 <div class="input-field col s6">
-                    <input value="" id="course_list_name" name="course_list_name" type="text" class="validate">
-                    <label class="active" for="course_list_name">Add new course list name here</label>
-                    <a href="#!" class="secondary-content"><i class = "material-icons">add</i></a>
+
+                    <form action="{{ url_for('update_course_list') }}" method="POST">
+                        <input value="" id="course_list_name" name="course_list_name" type="text" class="validate">
+                        <label class="active" for="course_list_name">Add New Course Here</label>
+                        <input type="submit" value="Add New Course" class="btn">
+                    </form>
+
                 </div>
             </div>
 

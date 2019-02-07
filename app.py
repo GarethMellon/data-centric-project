@@ -159,6 +159,14 @@ def update_cuisine_list():
     update_data(cuisine_list_update_sql)
             
     return redirect(url_for("cuisine_list"))
+    
+@app.route("/update_course_list/", methods = ["POST"])
+def update_course_list():
+    course_list_name = request.form.get("course_list_name")
+    course_list_update_sql = "INSERT INTO course_list (course_id, name) VALUES ( 0, '" + course_list_name +"');"
+    update_data(course_list_update_sql)
+            
+    return redirect(url_for("course_list"))
 
 ## Allergens routes and functions
 @app.route("/allergens/<recipe_ID>/<allergens_ID>/")
@@ -189,7 +197,6 @@ def allergens_list():
 def update_allergens_list():
     allergen_list_name = request.form.get("allergens_list_name")
     allergen_list_update_sql = "INSERT INTO allergens_list (allergens_id, name) VALUES ( 0, '" + allergen_list_name +"');"
-    print(allergen_list_update_sql)
     update_data(allergen_list_update_sql)
             
     return redirect(url_for("cuisine_list"))

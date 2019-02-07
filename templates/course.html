@@ -19,13 +19,18 @@
 
             <div class="col s5">
                 <div class="row">
-                    <select>
-                        <option value = "" disabled selected>Select New Course</option> 
+
+                    <form action="{{ url_for('add_course_to_recipe', recipe_ID = course_data[0].recipe_ID, course_ID = course_data[0].course_ID) }}" method="POST">
+
+                        <select id = "selection" name = "selection">
+                            <option value = "" disabled selected>Select New Course</option> 
                             {% for row in course_list_data %}
-                                <option value = "1">{{row.course_list_name}}</option>
+                                <option value = "{{row.course_list_name}}" id="course_name" name="course_name">{{row.course_list_name}}</option>
                             {% endfor %}
-                    </select>
-                    <a href="#" class="secondary-content"><i class = "material-icons">add</i></a>
+                        </select>
+
+                        <input type="submit" value="Add New Course" class="btn">
+
                 </div>
             </div>
 

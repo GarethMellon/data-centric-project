@@ -127,6 +127,15 @@ def course_list():
                             page_title = "Course List",
                             course_list_data = course_list_data)
 
+@app.route("/add_course_to_recipe/<recipe_ID>/<course_ID>/", methods = ["POST"])
+def add_course_to_recipe(recipe_ID, course_ID):
+    course_to_add = request.form.get("selection")
+    course_update_sql = "INSERT INTO course (recipes_ID, name) VALUES ('{}','{}');".format(recipe_ID, course_to_add)
+    update_data(course_update_sql)
+    
+    return redirect(url_for("course", recipe_ID = recipe_ID, course_ID = course_ID))
+
+
 ## Cuisine routes and functions
 @app.route("/cuisine/<recipe_ID>/<cuisine_ID>/")
 def cuisine (recipe_ID, cuisine_ID):

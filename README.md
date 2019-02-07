@@ -1,5 +1,9 @@
 ## Planning
 
+
+# Planning board
+https://trello.com/b/TipYwEPg/data-centric-project-clone
+
 # Wireframes
 
 Located in static/planning/wireframes

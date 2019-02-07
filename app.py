@@ -22,6 +22,18 @@ def select_data(sql):
             return result
     finally:
         connection.close()
+        
+def update_data(sql):
+    connection = pymysql.connect(host = "localhost",
+                            user = username,
+                            password = "",
+                            db = "recipes")
+    try:
+        with connection.cursor(pymysql.cursors.DictCursor) as cursor:
+            cursor.execute(sql)
+            connection.commit()
+    finally:
+        connection.close()
 
 @app.route('/')
 def index():
@@ -139,7 +151,16 @@ def cuisine_list():
     return render_template("cuisine_list.html",
                             page_title = "Course List",
                             cuisine_list_data = cuisine_list_data)
-                            
+
+@app.route("/update_cuisine_list/", methods = ["POST"])
+def update_cuisine_list():
+    cuisine_list_name = request.form.get("cuisine_list_name")
+    cuisine_list_update_sql = "INSERT INTO cuisine_list (cuisine_ID, name) VALUES ( 0, '" + cuisine_list_name +"');"
+    print(cuisine_list_update_sql)
+    update_data(cuisine_list_update_sql)
+            
+    return redirect(url_for("cuisine_list"))
+
 ## Allergens routes and functions
 @app.route("/allergens/<recipe_ID>/<allergens_ID>/")
 def allergens (recipe_ID, allergens_ID):

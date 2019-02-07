@@ -106,7 +106,7 @@ def ingredients(recipe_ID, ingredient_ID):
 @app.route("/course/<recipe_ID>/<course_ID>/")
 def course (recipe_ID, course_ID):
     # prep data for page
-    course_sql = "SELECT recipes.ID AS recipe_ID, recipes.name AS recipe_name, course.ID AS course_ID, course.name AS course_name FROM recipes JOIN course ON recipes.ID = course.recipes_ID WHERE recipes.ID = " + recipe_ID + " AND course.ID = " + course_ID +";"
+    course_sql = "SELECT recipes.ID AS recipe_ID, recipes.name AS recipe_name, course.ID AS course_ID, course.name AS course_name FROM recipes JOIN course ON recipes.ID = course.recipes_ID WHERE recipes.ID = '{}'".format(recipe_ID)
     course_data = select_data(course_sql)
     
     course_list_sql = "SELECT course_list.ID AS course_list_ID, course_list.name AS course_list_name from course_list;"

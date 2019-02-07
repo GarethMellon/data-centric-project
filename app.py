@@ -156,7 +156,6 @@ def cuisine_list():
 def update_cuisine_list():
     cuisine_list_name = request.form.get("cuisine_list_name")
     cuisine_list_update_sql = "INSERT INTO cuisine_list (cuisine_ID, name) VALUES ( 0, '" + cuisine_list_name +"');"
-    print(cuisine_list_update_sql)
     update_data(cuisine_list_update_sql)
             
     return redirect(url_for("cuisine_list"))
@@ -185,6 +184,15 @@ def allergens_list():
     return render_template("allergens_list.html",
                             page_title = "Allergens List",
                             allergens_list_data = allergens_list_data)
+                            
+@app.route("/update_allergens_list/", methods = ["POST"])
+def update_allergens_list():
+    allergen_list_name = request.form.get("allergens_list_name")
+    allergen_list_update_sql = "INSERT INTO allergens_list (allergens_id, name) VALUES ( 0, '" + allergen_list_name +"');"
+    print(allergen_list_update_sql)
+    update_data(allergen_list_update_sql)
+            
+    return redirect(url_for("cuisine_list"))
                             
 if __name__ == '__main__':
     app.run(host=os.environ.get('IP'),

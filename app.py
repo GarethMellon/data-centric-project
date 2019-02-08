@@ -54,22 +54,22 @@ def index():
 @app.route("/recieps/<recipe_ID>/")
 def recipes(recipe_ID):
     # prep data for page
-    recipes_sql = ("SELECT * from recipes where ID =" + recipe_ID)
+    recipes_sql = ("SELECT * FROM recipes WHERE recipes.ID =" + recipe_ID + " AND recipes.delete = '0';")
     recipes_data = select_data(recipes_sql)
     
-    directions_sql = ("SELECT * from directions where recipes_ID =" + recipe_ID)
+    directions_sql = ("SELECT * FROM directions WHERE recipes_ID =" + recipe_ID + " AND directions.delete = '0';")
     directions_data = select_data(directions_sql)
     
-    ingredients_sql = ("SELECT * from ingredients where recipes_ID =" + recipe_ID)
+    ingredients_sql = ("SELECT * FROM ingredients WHERE recipes_ID =" + recipe_ID + " AND ingredients.delete = '0';")
     ingredients_data = select_data(ingredients_sql)
     
-    cuisine_sql = ("SELECT * from cuisine where recipes_ID =" + recipe_ID)
+    cuisine_sql = ("SELECT * FROM cuisine WHERE recipes_ID =" + recipe_ID + " AND cuisine.delete = '0';")
     cuisine_data = select_data(cuisine_sql)
     
-    course_sql = ("SELECT * from course where recipes_ID =" + recipe_ID)
+    course_sql = ("SELECT * FROM course WHERE recipes_ID =" + recipe_ID + " AND course.delete = '0';")
     course_data = select_data(course_sql)
     
-    allergens_sql = ("SELECT * from allergens where recipes_ID =" + recipe_ID)
+    allergens_sql = ("SELECT * FROM allergens WHERE recipes_ID =" + recipe_ID + " AND allergens.delete = '0';")
     allergens_data = select_data(allergens_sql)
     
     return render_template("recieps.html",

@@ -141,11 +141,19 @@ def course_list():
                             page_title = "Course List",
                             course_list_data = course_list_data)
 
+@app.route("/update_course_list/", methods = ["POST"])
+def update_course_list():
+    course_list_name = request.form.get("course_list_name")
+    course_list_update_sql = "INSERT INTO course_list (course_id, name) VALUES ( 0, '" + course_list_name +"');"
+    update_data(course_list_update_sql)
+            
+    return redirect(url_for("course_list"))
+    
 ## Cuisine routes and functions
 @app.route("/cuisine/<recipe_ID>/<cuisine_ID>/")
 def cuisine (recipe_ID, cuisine_ID):
     # prep data for page
-    cuisine_sql = "SELECT recipes.ID AS recipe_ID, recipes.name AS recipe_name, cuisine.ID AS cuisine_ID, cuisine.name AS cuisine_name FROM recipes JOIN cuisine ON recipes.ID = cuisine.recipes_ID WHERE recipes.ID = " + recipe_ID + " AND cuisine.ID = " + cuisine_ID +";"
+    cuisine_sql = "SELECT recipes.ID AS recipe_ID, recipes.name AS recipe_name, cuisine.ID AS cuisine_ID, cuisine.name AS cuisine_name FROM recipes JOIN cuisine ON recipes.ID = cuisine.recipes_ID WHERE recipes.ID = " + recipe_ID + " AND cuisine.delete = '0';"
     cuisine_data = select_data(cuisine_sql)
     
     cuisine_list_sql = "SELECT cuisine_list.ID AS cuisine_list_ID, cuisine_list.name AS cuisine_list_name from cuisine_list;"
@@ -156,6 +164,20 @@ def cuisine (recipe_ID, cuisine_ID):
                             cuisine_data = cuisine_data,
                             cuisine_list_data = cuisine_list_data)
 
+@app.route("/add_cuisine_to_recipe/<recipe_ID>/<cuisine_ID>/", methods = ["POST"])
+def add_cuisine_to_recipe(recipe_ID, cuisine_ID):
+    cuisine_to_add = request.form.get("selection")
+    cuisine_update_sql = "INSERT INTO cuisine (recipes_ID, name) VALUES ('{}','{}');".format(recipe_ID, cuisine_to_add)
+    update_data(cuisine_update_sql)
+    
+    return redirect(url_for("cuisine", recipe_ID = recipe_ID, cuisine_ID = cuisine_ID))
+
+@app.route("/delete_cuisine_from_recipe/<recipe_ID>/<cuisine_ID>/")
+def delete_cuisine_from_recipe(recipe_ID, cuisine_ID):
+    cuisine_update_sql = "UPDATE cuisine SET cuisine.delete = 1 WHERE cuisine.ID = {};".format(cuisine_ID)
+    update_data(cuisine_update_sql)
+    return redirect(url_for("cuisine", recipe_ID = recipe_ID, cuisine_ID = cuisine_ID))
+    
 @app.route("/cuisine_list")
 def cuisine_list():
     # prep data for page
@@ -174,13 +196,6 @@ def update_cuisine_list():
             
     return redirect(url_for("cuisine_list"))
     
-@app.route("/update_course_list/", methods = ["POST"])
-def update_course_list():
-    course_list_name = request.form.get("course_list_name")
-    course_list_update_sql = "INSERT INTO course_list (course_id, name) VALUES ( 0, '" + course_list_name +"');"
-    update_data(course_list_update_sql)
-            
-    return redirect(url_for("course_list"))
 
 ## Allergens routes and functions
 @app.route("/allergens/<recipe_ID>/<allergens_ID>/")

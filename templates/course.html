@@ -11,7 +11,7 @@
                     </li>
                     {% for row in course_data %}
                     <li class="collection-item">
-                        <div> {{row.course_name}} <a href="#!" class="secondary-content"><i class = "material-icons">delete</i></a></div>
+                        <div> {{row.course_name}} <a href="{{ url_for('delete_course_from_recipe', recipe_ID = row.recipe_ID, course_ID = row.course_ID) }}" class="secondary-content"><i class = "material-icons">delete</i></a></div>
                     </li>
                     {% endfor %}
                 </ul>
@@ -36,8 +36,7 @@
 
             <div class="col s12">
                 <div class="row">
-                    <a href="#" class="btn">Save</a>
-                    <a href="{{url_for('recipes', recipe_ID = course_data[0].recipe_ID) }}" class="btn">Back</a>
+                    <a href="{{url_for('recipes', recipe_ID = course_data[0].recipe_ID) }}" class="btn">Back To Recipe</a>
                 </div>
             </div>
         </div>

@@ -11,7 +11,7 @@
                     </li>
                     {% for row in allergens_data %}
                     <li class="collection-item">
-                        <div> {{row.allergens_name}} <a href="#!" class="secondary-content"><i class = "material-icons">delete</i></a></div>
+                        <div> {{row.allergens_name}} <a href="{{ url_for('delete_allergens_from_recipe', recipe_ID = row.recipe_ID, allergens_ID = row.allergens_ID) }}" class="secondary-content"><i class = "material-icons">delete</i></a></div>
                     </li>
                     {% endfor %}
                 </ul>
@@ -19,20 +19,22 @@
 
             <div class="col s5">
                 <div class="row">
-                    <select>
-                        <option value = "" disabled selected>Select Allergy</option> 
+
+                    <form action="{{ url_for('add_allergens_to_recipe', recipe_ID = allergens_data[0].recipe_ID, allergens_ID = allergens_data[0].allergens_ID) }}" method="POST">
+
+                        <select id="selection" name="selection">
+                            <option value = "" disabled selected>Select New Cuisine</option> 
                             {% for row in allergens_list_data %}
-                                <option value = "1">{{row.allergens_list_name}}</option>
+                                <option value = "{{row.allergens_list_name}}" id="allergens_name" name="allergens_name">{{row.allergens_list_name}}</option>
                             {% endfor %}
-                    </select>
-                    <a href="#" class="secondary-content"><i class = "material-icons">add</i></a>
+                        </select>
+                        <input type="submit" value="Add New Allergen" class="btn">
                 </div>
             </div>
 
             <div class="col s12">
                 <div class="row">
-                    <a href="#" class="btn">Save</a>
-                    <a href="{{url_for('recipes', recipe_ID = allergens_data[0].recipe_ID) }}" class="btn">Back</a>
+                    <a href="{{url_for('recipes', recipe_ID = allergens_data[0].recipe_ID) }}" class="btn">Back To Recieps</a>
                 </div>
             </div>
         </div>

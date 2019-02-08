@@ -49,6 +49,7 @@ def index():
                             course_data = course_data,
                             recipes_data = recipes_data)
 
+
 ## Recieps routes and functions
 @app.route("/recieps/<recipe_ID>/")
 def recipes(recipe_ID):
@@ -91,6 +92,7 @@ def directions(recipe_ID, direction_ID):
                             page_title="Directions",
                             directions_data = directions_data)
 
+
 ## Ingredients routes and functions               
 @app.route("/ingredients/<recipe_ID>/<ingredient_ID>/")
 def ingredients(recipe_ID, ingredient_ID):
@@ -101,6 +103,7 @@ def ingredients(recipe_ID, ingredient_ID):
     return render_template("ingredients.html", 
                         page_title="Ingredients",
                         ingredient_data = ingredient_data)
+
 
 ## Course routes and functions
 @app.route("/course/<recipe_ID>/<course_ID>/")
@@ -148,6 +151,7 @@ def update_course_list():
     update_data(course_list_update_sql)
             
     return redirect(url_for("course_list"))
+    
     
 ## Cuisine routes and functions
 @app.route("/cuisine/<recipe_ID>/<cuisine_ID>/")
@@ -201,7 +205,7 @@ def update_cuisine_list():
 @app.route("/allergens/<recipe_ID>/<allergens_ID>/")
 def allergens (recipe_ID, allergens_ID):
     # prep data for page
-    allergens_sql = "SELECT recipes.ID AS recipe_ID, recipes.name AS recipe_name, allergens.ID AS allergens_ID, allergens.name AS allergens_name FROM recipes JOIN allergens ON recipes.ID = allergens.recipes_ID WHERE recipes.ID = " + recipe_ID + " AND allergens.ID = " + allergens_ID +";"
+    allergens_sql = "SELECT recipes.ID AS recipe_ID, recipes.name AS recipe_name, allergens.ID AS allergens_ID, allergens.name AS allergens_name FROM recipes JOIN allergens ON recipes.ID = allergens.recipes_ID WHERE recipes.ID = " + recipe_ID + " AND allergens.delete = 0;"
     allergens_data = select_data(allergens_sql)
     
     allergens_list_sql = "SELECT allergens_list.ID AS allergens_list_ID, allergens_list.name AS allergens_list_name from allergens_list;"
@@ -211,6 +215,20 @@ def allergens (recipe_ID, allergens_ID):
                             page_title = "Allergens",
                             allergens_data = allergens_data,
                             allergens_list_data = allergens_list_data)
+                            
+@app.route("/add_allergens_to_recipe/<recipe_ID>/<allergens_ID>/", methods = ["POST"])
+def add_allergens_to_recipe(recipe_ID, allergens_ID):
+    allergens_to_add = request.form.get("selection")
+    allergens_update_sql = "INSERT INTO allergens (recipes_ID, name) VALUES ('{}','{}');".format(recipe_ID, allergens_to_add)
+    update_data(allergens_update_sql)
+    
+    return redirect(url_for("allergens", recipe_ID = recipe_ID, allergens_ID = allergens_ID))
+
+@app.route("/delete_allergens_from_recipe/<recipe_ID>/<allergens_ID>/")
+def delete_allergens_from_recipe(recipe_ID, allergens_ID):
+    allergens_update_sql = "UPDATE allergens SET allergens.delete = 1 WHERE allergens.ID = {};".format(allergens_ID)
+    update_data(allergens_update_sql)
+    return redirect(url_for("allergens", recipe_ID = recipe_ID, allergens_ID = allergens_ID))
                             
 @app.route("/allergens_list")
 def allergens_list():
@@ -229,7 +247,8 @@ def update_allergens_list():
     update_data(allergen_list_update_sql)
             
     return redirect(url_for("cuisine_list"))
-                            
+                       
+                       
 if __name__ == '__main__':
     app.run(host=os.environ.get('IP'),
         port=int(os.environ.get('PORT')),

@@ -91,6 +91,15 @@ def directions(recipe_ID, direction_ID):
     return render_template("directions.html", 
                             page_title="Directions",
                             directions_data = directions_data)
+                            
+@app.route("/edit_direction/<recipe_ID>/<direction_ID>/", methods = ["POST"])
+def edit_direction(recipe_ID, direction_ID):
+    direction_text = request.form.get("direction_name")
+    update_sql = "UPDATE directions SET name = '{}' WHERE directions.ID = {};".format(direction_text, direction_ID)
+    update_data(update_sql)
+    return redirect(url_for('directions',
+                            recipe_ID = recipe_ID,
+                            direction_ID = direction_ID))
 
 
 ## Ingredients routes and functions               

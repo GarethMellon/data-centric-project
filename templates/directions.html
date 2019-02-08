@@ -11,16 +11,18 @@
                     <h5>{{ row.recipe_name }}</h5>
                 </div>
                 <div class="input-field col s10">
-                    <textarea rows="40" cols="50" id="direction_name" name="direction_name" class="validate"> 
-                    {{ row.direction_name }}
+
+                    <form action="{{ url_for('edit_direction', recipe_ID = row.recipe_ID , direction_ID = row.direction_ID ) }}" method="POST">
+                        <textarea rows="40" cols="50" id="direction_name" name="direction_name" class="validate"> 
+                        {{ row.direction_name }}
                     </textarea>
-                    <label class="active" for="first_name2">Direction</label>
+                        <label class="active" for="first_name2">Direction</label>
+                        <input type="submit" class = "btn" value="Save Change To Direction" />
+                    </form>
+
                 </div>
             </div>
-
-            <a href="#" class="btn">Save</a>
-            <a href="{{url_for('recipes', recipe_ID = row.recipe_ID)}}" class="btn">Back</a> 
-            {% endfor %}
+            <a href="{{url_for('recipes', recipe_ID = row.recipe_ID)}}" class="btn">Back</a> {% endfor %}
         </div>
     </div>
 </div>

@@ -38,10 +38,10 @@ def update_data(sql):
 @app.route('/')
 def index():
     # prep data for page
-    recieps_sql="select course.name as course_name , recipes.ID as recipes_ID, recipes.name as recipes_name from recipes JOIN course on recipes.ID = course.recipes_ID;"
+    recieps_sql="select course.name as course_name , recipes.ID as recipes_ID, recipes.name as recipes_name from recipes JOIN course on recipes.ID = course.recipes_ID AND course.delete = 0;"
     recipes_data = select_data(recieps_sql)
     
-    course_sql ="select count(ID), name as course_name from course group by course_name;"
+    course_sql ="select count(ID), name as course_name from course where course.delete = 0 group by course_name;"
     course_data = select_data(course_sql)
     
     return render_template("index.html",

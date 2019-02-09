@@ -29,6 +29,8 @@
                     {% endif %}
                 </div>
             </div>
+
+            <a href="{{url_for('delete_direction_from_recipe', recipe_ID = row.recipe_ID, direction_ID = row.direction_ID)}}" class="btn">Delete Direction</a>
             <a href="{{url_for('recipes', recipe_ID = row.recipe_ID)}}" class="btn">Back</a> {% endfor %}
 
         </div>

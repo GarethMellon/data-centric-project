@@ -117,6 +117,11 @@ def add_new_direction(recipe_ID):
     return redirect(url_for('recipes',
                             recipe_ID = recipe_ID))
     
+@app.route("/delete_direction_from_recipe/<recipe_ID>/<direction_ID>/")
+def delete_direction_from_recipe(recipe_ID, direction_ID):
+    course_update_sql = "UPDATE directions SET directions.delete = 1 WHERE directions.ID = {};".format(direction_ID)
+    update_data(course_update_sql)
+    return redirect(url_for("recipes", recipe_ID = recipe_ID))
 
 ## Ingredients routes and functions               
 @app.route("/ingredients/<recipe_ID>/<ingredient_ID>/")

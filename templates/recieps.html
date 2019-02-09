@@ -17,7 +17,7 @@
                 <!-- directions data insert-->
                 {% for direction in directions_data %} {% if recipe.ID == direction.recipes_ID: %} {% if loop.index == 1: %}
                 <li class="collection-header">
-                    <h5>Directions</h5>
+                    <h5>Directions</h5> <a href="{{url_for('add_direction', recipe_ID = recipe.ID)}}" class="btn">Add New Direction</a>
                 </li>
                 {% endif %}
                 <li class="collection-item">
@@ -31,7 +31,7 @@
                 <!-- ingredients data insert-->
                 {% for ingredient in ingredients_data %} {% if recipe.ID == ingredient.recipes_ID: %} {% if loop.index == 1: %}
                 <li class="collection-header">
-                    <h5>Ingredients</h5>
+                    <h5>Ingredients</h5> <a href="{{url_for('index')}}" class="btn">Add New Ingredient</a>
                 </li>
                 {% endif %}
                 <li class="collection-item">
@@ -85,8 +85,6 @@
 
             {% endfor %}
 
-            <a href="{{url_for('index')}}" class="btn">Add Directions</a>
-            <a href="{{url_for('index')}}" class="btn">Add Ingredients</a>
             <a href="{{url_for('index')}}" class="btn">Back</a>
         </div>
     </div>

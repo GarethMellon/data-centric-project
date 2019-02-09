@@ -101,6 +101,22 @@ def edit_direction(recipe_ID, direction_ID):
                             recipe_ID = recipe_ID,
                             direction_ID = direction_ID))
 
+@app.route("/add_direction/<recipe_ID>/")
+def add_direction(recipe_ID):
+    directions_sql = "SELECT recipes.ID AS recipe_ID, recipes.name AS recipe_name FROM recipes WHERE recipes.ID = " + recipe_ID + ";"
+    directions_data = select_data(directions_sql)
+    return render_template("directions.html", 
+                            page_title="Add New Direction",
+                            directions_data = directions_data)
+    
+@app.route("/add_new_direction/<recipe_ID>", methods = ["POST"])
+def add_new_direction(recipe_ID):
+    direction_text = request.form.get("direction_name")
+    update_sql = "INSERT INTO directions (recipes_ID, name) VALUES ({},'{}');".format(recipe_ID, direction_text)
+    update_data(update_sql)
+    return redirect(url_for('recipes',
+                            recipe_ID = recipe_ID))
+    
 
 ## Ingredients routes and functions               
 @app.route("/ingredients/<recipe_ID>/<ingredient_ID>/")

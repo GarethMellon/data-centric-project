@@ -31,7 +31,7 @@
                 <!-- ingredients data insert-->
                 {% for ingredient in ingredients_data %} {% if recipe.ID == ingredient.recipes_ID: %} {% if loop.index == 1: %}
                 <li class="collection-header">
-                    <h5>Ingredients</h5> <a href="{{url_for('index')}}" class="btn">Add New Ingredient</a>
+                    <h5>Ingredients</h5> <a href="{{url_for('add_ingredient', recipe_ID = recipe.ID)}}" class="btn">Add New Ingredient</a>
                 </li>
                 {% endif %}
                 <li class="collection-item">

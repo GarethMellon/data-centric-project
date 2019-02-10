@@ -9,25 +9,53 @@
                 <div class="collection-header">
                     <h5>{{ row.recipe_name }}</h5>
                 </div>
-                <div class="input-field col s6">
-                    <input value="{{row.ingredients_name}}" id="ingredients_name" name="ingredients_name" type="text" class="validate">
-                    <label class="active" for="ingredients_name">Ingredients Name</label>
-                </div>
+                {% if row.ingredients_name %}
+                <form action="{{ url_for('edit_ingredient', recipe_ID = row.recipe_ID , ingredient_ID = row.ingredients_ID ) }}" method="POST">
+                    <div class="row">
+                        <div class="col s6">
+                            <label class="active" for="ingredients_name">Ingredients Name</label>
+                            <input value="{{row.ingredients_name}}" id="ingredients_name" name="ingredients_name" type="text" class="validate">
+                        </div>
 
-                <div class="input-field col s3">
-                    <input value="{{row.ingredient_quantity}}" id="ingredient_quantity" name="ingredient_quantity" type="text" class="validate">
-                    <label class="active" for="ingredient_quantity">Quantity</label>
-                </div>
+                        <div class="col s3">
+                            <label class="active" for="ingredient_quantity">Quantity</label>
+                            <input value="{{row.ingredient_quantity}}" id="ingredient_quantity" name="ingredient_quantity" type="text" class="validate">
+                        </div>
 
-                <div class="input-field col s3">
-                    <input value="{{row.ingredients_unit_of_measurement}}" id="ingredients_unit_of_measurement" name="ingredients_unit_of_measurement" type="text" class="validate">
-                    <label class="active" for="ingredients_unit_of_measurement">Unit of Measurement</label>
-                </div>
+                        <div class="col s3">
+                            <label class="active" for="ingredients_unit_of_measurement">Unit of Measurement</label>
+                            <input value="{{row.ingredients_unit_of_measurement}}" id="ingredients_unit_of_measurement" name="ingredients_unit_of_measurement" type="text" class="validate">
+                        </div>
+                    </div>
+                    <input type="submit" class="btn" value="Save Change To Ingredient" />
+                </form>
+                {% else %}
+
+                <form action="{{ url_for('add_ingredient_to_recipe', recipe_ID = row.recipe_ID ) }}" method="POST">
+                    <div class="row">
+                        <div class="col s6">
+                            <label class="active" for="ingredients_name">Ingredients Name</label>
+                            <input value="" id="ingredients_name" name="ingredients_name" type="text" class="validate">
+                        </div>
+
+                        <div class="col s3">
+                            <label class="active" for="ingredient_quantity">Quantity</label>
+                            <input value="" id="ingredient_quantity" name="ingredient_quantity" type="text" class="validate">
+                        </div>
+
+                        <div class="col s3">
+                            <label class="active" for="ingredients_unit_of_measurement">Unit of Measurement</label>
+                            <input value="" id="ingredients_unit_of_measurement" name="ingredients_unit_of_measurement" type="text" class="validate">
+                        </div>
+                    </div>
+                    <input type="submit" class="btn" value="Add New Ingredient" />
+                </form>
+
+                {% endif %}
+
             </div>
-
-            <a href="#" class="btn">Save</a>
-            <a href="{{url_for('recipes', recipe_ID = row.recipe_ID)}}" class="btn">Back</a> 
-            {% endfor %}
+            <a href="{{url_for('delete_ingredient_from_recipe', recipe_ID = row.recipe_ID, ingredient_ID = row.ingredients_ID) }}" class="btn">Delete Direction</a>
+            <a href="{{url_for('recieps', recipe_ID = row.recipe_ID)}}" class="btn">Back</a> {% endfor %}
 
         </div>
     </div>

@@ -52,7 +52,7 @@ def index():
 
 ## Recieps routes and functions
 @app.route("/recieps/<recipe_ID>/")
-def recipes(recipe_ID):
+def recieps(recipe_ID):
     # prep data for page
     recipes_sql = ("SELECT * FROM recipes WHERE recipes.ID =" + recipe_ID + " AND recipes.delete = '0';")
     recipes_data = select_data(recipes_sql)
@@ -114,14 +114,15 @@ def add_new_direction(recipe_ID):
     direction_text = request.form.get("direction_name")
     update_sql = "INSERT INTO directions (recipes_ID, name) VALUES ({},'{}');".format(recipe_ID, direction_text)
     update_data(update_sql)
-    return redirect(url_for('recipes',
+    return redirect(url_for('recieps',
                             recipe_ID = recipe_ID))
     
 @app.route("/delete_direction_from_recipe/<recipe_ID>/<direction_ID>/")
 def delete_direction_from_recipe(recipe_ID, direction_ID):
     course_update_sql = "UPDATE directions SET directions.delete = 1 WHERE directions.ID = {};".format(direction_ID)
     update_data(course_update_sql)
-    return redirect(url_for("recipes", recipe_ID = recipe_ID))
+    return redirect(url_for("recieps", 
+                            recipe_ID = recipe_ID))
 
 ## Ingredients routes and functions               
 @app.route("/ingredients/<recipe_ID>/<ingredient_ID>/")
@@ -134,6 +135,44 @@ def ingredients(recipe_ID, ingredient_ID):
                         page_title="Ingredients",
                         ingredient_data = ingredient_data)
 
+@app.route("/edit_ingredient/<recipe_ID>/<ingredient_ID>/", methods = ["POST"])
+def edit_ingredient(recipe_ID, ingredient_ID):
+    ingredient_text = request.form.get("ingredients_name")
+    ingredient_quantity = request.form.get("ingredient_quantity")
+    ingredient_unit_of_measurement = request.form.get("ingredients_unit_of_measurement")
+    update_sql = "UPDATE ingredients SET name = '{}', quantity = '{}', unit_of_measurement ='{}' WHERE ingredients.ID = {};".format(ingredient_text, ingredient_quantity, ingredient_unit_of_measurement, ingredient_ID)
+    update_data(update_sql)
+    return redirect(url_for('ingredients',
+                            recipe_ID = recipe_ID,
+                            ingredient_ID = ingredient_ID))
+
+@app.route("/add_ingredient/<recipe_ID>/")
+def add_ingredient(recipe_ID):
+    ingredient_sql = "SELECT recipes.ID AS recipe_ID, recipes.name AS recipe_name FROM recipes WHERE recipes.ID = " + recipe_ID + ";"
+    ingredient_data = select_data(ingredient_sql)
+    return render_template("ingredients.html", 
+                            page_title="Add New Ingredient",
+                            ingredient_data = ingredient_data)
+                            
+@app.route("/add_ingredient_to_recipe/<recipe_ID>/", methods = ["POST"])
+def add_ingredient_to_recipe(recipe_ID):
+    ingredient_text = request.form.get("ingredients_name")
+    ingredient_quantity = request.form.get("ingredient_quantity")
+    ingredient_unit_of_measurement = request.form.get("ingredients_unit_of_measurement")
+    
+    update_sql = "INSERT INTO ingredients (recipes_ID, name, quantity, unit_of_measurement) VALUES('{}','{}','{}','{}');".format(recipe_ID, ingredient_text, ingredient_quantity, ingredient_unit_of_measurement)
+    update_data(update_sql)
+
+    return redirect(url_for("recieps", 
+                            recipe_ID = recipe_ID))
+                            
+@app.route("/delete_ingredient_from_recipe/<recipe_ID>/<ingredient_ID>/")
+def delete_ingredient_from_recipe(recipe_ID, ingredient_ID):
+    update_sql = "UPDATE ingredients SET ingredients.delete = 1 WHERE ingredients.ID = {};".format(ingredient_ID)
+    print(update_sql)
+    update_data(update_sql)
+    return redirect(url_for("recieps", 
+                            recipe_ID = recipe_ID))
 
 ## Course routes and functions
 @app.route("/course/<recipe_ID>/<course_ID>/")
@@ -252,7 +291,9 @@ def add_allergens_to_recipe(recipe_ID, allergens_ID):
     allergens_update_sql = "INSERT INTO allergens (recipes_ID, name) VALUES ('{}','{}');".format(recipe_ID, allergens_to_add)
     update_data(allergens_update_sql)
     
-    return redirect(url_for("allergens", recipe_ID = recipe_ID, allergens_ID = allergens_ID))
+    return redirect(url_for("allergens", 
+                            recipe_ID = recipe_ID, 
+                            allergens_ID = allergens_ID))
 
 @app.route("/delete_allergens_from_recipe/<recipe_ID>/<allergens_ID>/")
 def delete_allergens_from_recipe(recipe_ID, allergens_ID):

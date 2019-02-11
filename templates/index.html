@@ -1,5 +1,4 @@
-{% extends "base.html" %} 
-{% block content %}
+{% extends "base.html" %} {% block content %}
 
 <div class="container">
     <div class="row">
@@ -10,21 +9,36 @@
                 <li>
                     <div class="collapsible-header"><i class="material-icons">fastfood</i> {{ course.course_name }} </div>
 
-                    {% for recipe in recipes_data %} 
-                        {% if course.course_name == recipe.course_name: %}
-                        <div class="collapsible-body"><span>{{ recipe.recipes_name }}</span>
-                            <a href="{{ url_for('recieps', recipe_ID = recipe.recipes_ID) }}" class="btn"> View Recipe</a>
-                        </div>
-                        {% else %} 
-                        {% endif %} 
-                    {% endfor %}
+                    {% for recipe in recipes_data %} {% if course.course_name == recipe.course_name: %}
+                    <div class="collapsible-body"><span>{{ recipe.recipes_name }}</span>
+                        <a href="{{ url_for('recieps', recipe_ID = recipe.recipes_ID) }}" class="btn"> View Recipe</a>
+                    </div>
+                    {% else %} {% endif %} {% endfor %}
 
                 </li>
                 {% endfor %}
             </ul>
-            
+
             <br>
-            <a href="#" class="btn"> Add New Recipe</a>
+            <a class="waves-effect waves-light btn modal-trigger" href="#modal1">Add New Recipe</a>
+
+            <div id="modal1" class="modal bottom-sheet">
+                <div class="modal-content">
+                    <form action = "{{url_for('new_recipe')}}" method = "POST">
+                        <label for="recipe_name"> Recipe Name</label>
+                        <input type="text" name="recipe_name" name="recipe_name" />
+
+                        <select id="selection" name="selection">
+                            <option value = "" disabled selected>Select New Course</option> 
+                            {% for row in course_list_data %}
+                                <option value = "{{row.course_list_name}}" id="course_name" name="course_name">{{row.course_list_name}}</option>
+                            {% endfor %}
+                        </select>
+
+                        <input class="btn" type="submit" value="Add New Recipe" />
+                    </form>
+                </div>
+            </div>
 
         </div>
     </div>

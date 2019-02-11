@@ -44,13 +44,17 @@ def index():
     course_sql ="select count(ID), name as course_name from course where course.delete = 0 group by course_name;"
     course_data = select_data(course_sql)
     
+    course_list_sql = "SELECT course_list.ID AS course_list_ID, course_list.name AS course_list_name from course_list;"
+    course_list_data = select_data(course_list_sql)
+    
     return render_template("index.html",
                             page_title="Welcome to you're cooking recieps",
                             course_data = course_data,
-                            recipes_data = recipes_data)
+                            recipes_data = recipes_data,
+                            course_list_data = course_list_data)
 
 
-## Recieps routes and functions
+#### Recieps routes and functions
 @app.route("/recieps/<recipe_ID>/")
 def recieps(recipe_ID):
     # prep data for page
@@ -80,8 +84,28 @@ def recieps(recipe_ID):
                             cuisine_data = cuisine_data,
                             course_data = course_data,
                             allergens_data = allergens_data)
+                            
+## Add new recipe
+@app.route("/new_recipe", methods = ["POST"])
+def new_recipe():
+    recipe_name = request.form.get("recipe_name")
+    course_name = request.form.get('selection')
+    
+    recipe_sql = "INSERT INTO recipes (name) VALUES ('{}');".format(recipe_name)
+    select_recipe_ID = "SELECT recipes.ID from recipes where recipes.name = '{}';".format(recipe_name)
+    
+    update_data(recipe_sql)
+    recipe_ID = select_data(select_recipe_ID)
+    
+    course_sql = "INSERT INTO course (recipes_ID, name) VALUES ('{}', '{}');".format(recipe_ID[0]['ID'], course_name)
 
-## Directions routes and functions
+    update_data(course_sql)
+    return redirect(url_for('recieps',
+                            recipe_ID = recipe_ID[0]['ID'] ))
+    
+## Routes to add edit and delete recieps
+
+#### Directions routes and functions
 @app.route("/directions/<recipe_ID>/<direction_ID>/")
 def directions(recipe_ID, direction_ID):
     # prep data for page
@@ -91,7 +115,8 @@ def directions(recipe_ID, direction_ID):
     return render_template("directions.html", 
                             page_title="Directions",
                             directions_data = directions_data)
-                            
+
+## Routes to add edit and delete directions                            
 @app.route("/edit_direction/<recipe_ID>/<direction_ID>/", methods = ["POST"])
 def edit_direction(recipe_ID, direction_ID):
     direction_text = request.form.get("direction_name")
@@ -124,7 +149,7 @@ def delete_direction_from_recipe(recipe_ID, direction_ID):
     return redirect(url_for("recieps", 
                             recipe_ID = recipe_ID))
 
-## Ingredients routes and functions               
+#### Ingredients routes and functions               
 @app.route("/ingredients/<recipe_ID>/<ingredient_ID>/")
 def ingredients(recipe_ID, ingredient_ID):
     # prep data for page
@@ -135,6 +160,7 @@ def ingredients(recipe_ID, ingredient_ID):
                         page_title="Ingredients",
                         ingredient_data = ingredient_data)
 
+## Routes to add edit and delete ingredients 
 @app.route("/edit_ingredient/<recipe_ID>/<ingredient_ID>/", methods = ["POST"])
 def edit_ingredient(recipe_ID, ingredient_ID):
     ingredient_text = request.form.get("ingredients_name")
@@ -174,7 +200,7 @@ def delete_ingredient_from_recipe(recipe_ID, ingredient_ID):
     return redirect(url_for("recieps", 
                             recipe_ID = recipe_ID))
 
-## Course routes and functions
+#### Course routes and functions
 @app.route("/course/<recipe_ID>/<course_ID>/")
 def course (recipe_ID, course_ID):
     # prep data for page
@@ -189,6 +215,7 @@ def course (recipe_ID, course_ID):
                             course_data = course_data,
                             course_list_data = course_list_data)
 
+## Routes to add edit and delete courses 
 @app.route("/add_course_to_recipe/<recipe_ID>/<course_ID>/", methods = ["POST"])
 def add_course_to_recipe(recipe_ID, course_ID):
     course_to_add = request.form.get("selection")
@@ -221,8 +248,7 @@ def update_course_list():
             
     return redirect(url_for("course_list"))
     
-    
-## Cuisine routes and functions
+#### Cuisine routes and functions
 @app.route("/cuisine/<recipe_ID>/<cuisine_ID>/")
 def cuisine (recipe_ID, cuisine_ID):
     # prep data for page
@@ -237,6 +263,7 @@ def cuisine (recipe_ID, cuisine_ID):
                             cuisine_data = cuisine_data,
                             cuisine_list_data = cuisine_list_data)
 
+## Routes to add edit and delete cuisine 
 @app.route("/add_cuisine_to_recipe/<recipe_ID>/<cuisine_ID>/", methods = ["POST"])
 def add_cuisine_to_recipe(recipe_ID, cuisine_ID):
     cuisine_to_add = request.form.get("selection")
@@ -270,7 +297,7 @@ def update_cuisine_list():
     return redirect(url_for("cuisine_list"))
     
 
-## Allergens routes and functions
+#### Allergens routes and functions
 @app.route("/allergens/<recipe_ID>/<allergens_ID>/")
 def allergens (recipe_ID, allergens_ID):
     # prep data for page
@@ -284,7 +311,8 @@ def allergens (recipe_ID, allergens_ID):
                             page_title = "Allergens",
                             allergens_data = allergens_data,
                             allergens_list_data = allergens_list_data)
-                            
+    
+## Routes to add edit and delete allergens                        
 @app.route("/add_allergens_to_recipe/<recipe_ID>/<allergens_ID>/", methods = ["POST"])
 def add_allergens_to_recipe(recipe_ID, allergens_ID):
     allergens_to_add = request.form.get("selection")

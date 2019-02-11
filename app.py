@@ -222,13 +222,13 @@ def add_course_to_recipe(recipe_ID, course_ID):
     course_update_sql = "INSERT INTO course (recipes_ID, name) VALUES ('{}','{}');".format(recipe_ID, course_to_add)
     update_data(course_update_sql)
     
-    return redirect(url_for("course", recipe_ID = recipe_ID, course_ID = course_ID))
+    return redirect(url_for("recieps", recipe_ID = recipe_ID))
 
 @app.route("/delete_course_from_recipe/<recipe_ID>/<course_ID>/")
 def delete_course_from_recipe(recipe_ID, course_ID):
     course_update_sql = "UPDATE course SET course.delete = 1 WHERE course.ID = {};".format(course_ID)
     update_data(course_update_sql)
-    return redirect(url_for("course", recipe_ID = recipe_ID, course_ID = course_ID))
+    return redirect(url_for("recieps", recipe_ID = recipe_ID))
     
 @app.route("/course_list")
 def course_list():

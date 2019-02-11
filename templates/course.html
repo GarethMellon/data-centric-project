@@ -11,7 +11,10 @@
                     </li>
                     {% for row in course_data %}
                     <li class="collection-item">
-                        <div> {{row.course_name}} <a href="{{ url_for('delete_course_from_recipe', recipe_ID = row.recipe_ID, course_ID = row.course_ID) }}" class="secondary-content"><i class = "material-icons">delete</i></a></div>
+                        <div> {{row.course_name}} 
+                        {% if loop.index > 1 %}
+                        <a href="{{ url_for('delete_course_from_recipe', recipe_ID = row.recipe_ID, course_ID = row.course_ID) }}" class="secondary-content"><i class = "material-icons">delete</i></a></div>
+                        {% endif %}
                     </li>
                     {% endfor %}
                 </ul>

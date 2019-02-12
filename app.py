@@ -35,6 +35,16 @@ def update_data(sql):
     finally:
         connection.close()
 
+"""
+data handling functions from user input
+"""
+
+
+
+"""
+All pages route and functions below
+"""
+
 @app.route('/')
 def index():
     # prep data for page
@@ -52,7 +62,6 @@ def index():
                             course_data = course_data,
                             recipes_data = recipes_data,
                             course_list_data = course_list_data)
-
 
 #### Recieps routes and functions
 @app.route("/recieps/<recipe_ID>/")
@@ -83,8 +92,28 @@ def recieps(recipe_ID):
                             ingredients_data = ingredients_data,
                             cuisine_data = cuisine_data,
                             course_data = course_data,
-                            allergens_data = allergens_data)
+                            allergens_data = allergens_data,
+                            recipe_ID = recipe_ID)
                             
+@app.route("/delete_recipe/<recipe_ID>/")
+def delete_recipe(recipe_ID):
+    
+    allergens_sql = "UPDATE allergens SET allergens.delete = 1 WHERE allergens.recipes_ID = {};".format(recipe_ID)
+    course_sql = "UPDATE course SET course.delete = 1 WHERE course.recipes_ID = {};".format(recipe_ID)
+    cuisine_sql = "UPDATE cuisine SET cuisine.delete = 1 WHERE cuisine.recipes_ID = {};".format(recipe_ID)
+    directions_sql = "UPDATE directions SET directions.delete = 1 WHERE directions.recipes_ID = {};".format(recipe_ID)
+    ingredients_sql = "UPDATE ingredients SET ingredients.delete = 1 WHERE ingredients.recipes_ID = {};".format(recipe_ID)
+    recipes_sql = "UPDATE recipes SET recipes.delete = 1 WHERE recipes.ID = {};".format(recipe_ID)
+    
+    update_data(allergens_sql)
+    update_data(course_sql)
+    update_data(cuisine_sql)
+    update_data(directions_sql)
+    update_data(ingredients_sql)
+    update_data(recipes_sql)
+    
+    return redirect(url_for('index'))
+
 ## Add new recipe
 @app.route("/new_recipe", methods = ["POST"])
 def new_recipe():
@@ -310,6 +339,12 @@ def update_cuisine_list():
     update_data(cuisine_list_update_sql)
             
     return redirect(url_for("cuisine_list"))
+
+@app.route("/delete_cuisine_list/<cuisine_list_ID>/")
+def delete_cuisine_list(cuisine_list_ID):
+    sql = "DELETE from cuisine_list where ID = '{}';".format(cuisine_list_ID)
+    update_data(sql)
+    return redirect(url_for('cuisine_list'))
     
 
 #### Allergens routes and functions

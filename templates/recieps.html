@@ -22,12 +22,11 @@
                 {% endif %}
 
                 <!-- directions data insert-->
-                
+
                 <li class="collection-header">
                     <h5>Directions</h5> <a href="{{url_for('add_direction', recipe_ID = recipe.ID)}}" class="btn">Add New Direction</a>
                 </li>
-                {% for direction in directions_data %} 
-                {% if recipe.ID == direction.recipes_ID: %} 
+                {% for direction in directions_data %} {% if recipe.ID == direction.recipes_ID: %}
 
                 <li class="collection-item">
                     <div>Direction {{ loop.index }} : {{ direction.name }}
@@ -35,98 +34,77 @@
                     </div>
                 </li>
 
-                {% endif %} 
-                {% endfor %} 
+                {% endif %} {% endfor %}
 
 
                 <!-- ingredients data insert-->
-                
+
                 <li class="collection-header">
                     <h5>Ingredients</h5> <a href="{{url_for('add_ingredient', recipe_ID = recipe.ID)}}" class="btn">Add New Ingredient</a>
                 </li>
-                {% for ingredient in ingredients_data %} 
-                {% if recipe.ID == ingredient.recipes_ID: %} 
+                {% for ingredient in ingredients_data %} {% if recipe.ID == ingredient.recipes_ID: %}
 
                 <li class="collection-item">
                     <div>Ingredient {{ loop.index }} : {{ ingredient.name }} {{ ingredient.quantity }} {{ ingredient.unit_of_measurement }}
                         <a href="{{url_for('ingredients', recipe_ID = recipe.ID, ingredient_ID = ingredient.ID)}}" class="secondary-content"><i class="material-icons">edit</i></a>
                     </div>
                 </li>
-                {% endif %}
-                {% endfor %}
+                {% endif %} {% endfor %}
 
 
                 <!-- cuisine data insert-->
-                
+
                 <li class="collection-header">
                     <h6>Cuisine</h6>
                 </li>
-                {% if cuisine_data: %}
-                
-                {% for cuisine in cuisine_data %} 
-                {% if recipe.ID == cuisine.recipes_ID: %} 
+                {% if cuisine_data: %} {% for cuisine in cuisine_data %} {% if recipe.ID == cuisine.recipes_ID: %}
 
                 <li class="collection-item">
                     <div>{{ cuisine.name }}
                         <a href="{{url_for('cuisine', recipe_ID = recipe.ID)}}" class="secondary-content"><i class="material-icons">edit</i></a>
                     </div>
                 </li>
-                {% endif %} 
-                {% endfor %}
-
-                {% else %}
+                {% endif %} {% endfor %} {% else %}
                 <li class="collection-item">
                     <span>Add New Cuisine</span>
-                        <a href = "{{url_for('new_cuisine', recipe_ID = recipe.ID)}}" class="secondary-content"><i class="material-icons">add</i></a>
+                    <a href="{{url_for('new_cuisine', recipe_ID = recipe.ID)}}" class="secondary-content"><i class="material-icons">add</i></a>
                 </li>
                 {% endif %}
                 <!-- course data insert-->
-                
+
                 <li class="collection-header">
                     <h6>Course</h6>
                 </li>
-                {% if course_data: %}
-                
-                {% for course in course_data %} 
-                {% if recipe.ID == course.recipes_ID: %} 
+                {% if course_data: %} {% for course in course_data %} {% if recipe.ID == course.recipes_ID: %}
 
                 <li class="collection-item">
                     <div>{{ course.name }}
                         <a href="{{url_for('course', recipe_ID = recipe.ID, course_ID = course.ID)}}" class="secondary-content"><i class="material-icons">edit</i></a>
                     </div>
                 </li>
-                {% endif %} 
-                {% endfor %}
-                
-                {% else %}
+                {% endif %} {% endfor %} {% else %}
                 <li class="collection-item">
                     <span>Add New Course</span>
-                        <a href = "#" class="secondary-content"><i class="material-icons">plus</i></a>
+                    <a href="#" class="secondary-content"><i class="material-icons">plus</i></a>
                 </li>
                 {% endif%}
 
                 <!-- allergen data insert-->
-                
+
                 <li class="collection-header">
                     <h6>Allergies</h6>
                 </li>
-                {% if allergens_data %}
-                
-                {% for allergen in allergens_data %} 
-                {% if recipe.ID == allergen.recipes_ID: %} 
+                {% if allergens_data %} {% for allergen in allergens_data %} {% if recipe.ID == allergen.recipes_ID: %}
 
                 <li class="collection-item">
                     <div>Allergies : {{ allergen.name }}
                         <a href="{{url_for('allergens', recipe_ID = recipe.ID, allergens_ID = allergen.ID)}}" class="secondary-content"><i class="material-icons">edit</i></a>
                     </div>
                 </li>
-                {% endif %} 
-                {% endfor %}
-                
-                {% else %}
+                {% endif %} {% endfor %} {% else %}
                 <li class="collection-item">
                     <span>Add New Allergen</span>
-                        <a href = "{{url_for('new_allergen', recipe_ID = recipe.ID)}}" class="secondary-content"><i class="material-icons">add</i></a>
+                    <a href="{{url_for('new_allergen', recipe_ID = recipe.ID)}}" class="secondary-content"><i class="material-icons">add</i></a>
                 </li>
                 {% endif %}
 
@@ -134,7 +112,21 @@
 
             {% endfor %}
 
-            <a href="{{url_for('index')}}" class="btn">Back</a>
+            <a href = "{{url_for('index')}}" class="btn">Back</a>
+            <a class = "waves-effect waves-light btn modal-trigger red" href="#modal">Delete Recipe</a>
+
+            <div id = "modal" class="modal">
+                <div class="modal-content">
+                    <h4>Delete Recipe</h4>
+                    <p>Are you sure you want to delete this recipe?</p>
+                    <p><small>(Changes cannot be reversed)</small></p>
+                </div>
+                <div class="modal-footer">
+                    <a href = "{{ url_for('delete_recipe', recipe_ID = recipe_ID) }}" class="btn red">Delete Recipe</a>
+                    <a href = "{{ url_for('recieps', recipe_ID = recipe_ID) }}" class="btn">Cancel</a>
+                </div>
+            </div>
+
         </div>
     </div>
 </div>

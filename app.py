@@ -276,6 +276,12 @@ def update_course_list():
     update_data(course_list_update_sql)
             
     return redirect(url_for("course_list"))
+
+@app.route("/delete_course_list/<course_list_ID>/")
+def delete_course_list(course_list_ID):
+    sql = "DELETE from course_list where ID = '{}';".format(course_list_ID)
+    update_data(sql)
+    return redirect(url_for('course_list'))
     
 #### Cuisine routes and functions
 @app.route("/new_cuisine/<recipe_ID>/")

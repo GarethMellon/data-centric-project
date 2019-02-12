@@ -8,10 +8,10 @@
                 <div class="col s12">
                     <ul class="collapsible popout" data-collapsible="accordion">
                         <li>
-                            <div class="collapsible-header"><i class="material-icons">filter_drama</i>Allergens List</div>
+                            <div class="collapsible-header"><i class="material-icons">settings_ethernet</i>Allergens List</div>
                             {% for row in allergens_list_data %}
                             <div class="collapsible-body"><span>{{ row.allergens_list_name }} </span>
-                                <a href="#!" class="secondary-content"><i class = "material-icons">delete</i></a>
+                                <a href="{{ url_for('delete_allergens_list', allergens_list_ID = row.allergens_list_ID) }}" class="secondary-content"><i class = "material-icons">delete</i></a>
                             </div>
                             {% endfor %}
                         </li>

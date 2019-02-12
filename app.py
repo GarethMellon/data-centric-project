@@ -418,6 +418,12 @@ def update_allergens_list():
     update_data(allergen_list_update_sql)
             
     return redirect(url_for("cuisine_list"))
+    
+@app.route("/delete_allergens_list/<allergens_list_ID>/")
+def delete_allergens_list(allergens_list_ID):
+    sql = "DELETE from allergens_list where ID = '{}';".format(allergens_list_ID)
+    update_data(sql)
+    return redirect(url_for('allergens_list'))
                        
                        
 if __name__ == '__main__':

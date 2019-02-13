@@ -36,6 +36,20 @@ def update_data(sql):
     finally:
         connection.close()
 
+"""
+Pass in a string of text (as text) and uses list of invalid characters.
+Returns the text with the invalid character striped out.
+"""
+def remove_invalid_characters(text):
+    invalid_character_set = ['!','"','$','%','^','&','*','{','}',']','[','~','#',':',';',"'",'~','/','?','>','<',"\\",'|']
+    num = 0 
+    while num < len(invalid_character_set):
+        if invalid_character_set[num] in text:
+            text = text.replace(invalid_character_set[num], "")
+            flash_message = ("Please note we have removed the invalid character '{}' from you're text").format(invalid_character_set[num])
+            flash(flash_message)
+        num += 1
+    return text
 
 """
 Pass in a string as text and check if it is empty.
@@ -125,11 +139,14 @@ def delete_recipe(recipe_ID):
 def new_recipe():
     recipe_name = request.form.get("recipe_name")
     course_name = request.form.get('selection')
-    
+    # Check is the user input is null
     if text_is_none(recipe_name) == True or text_is_none(course_name) == True:
         flash('You must enter some text')
         return redirect(url_for('index'))
     else:
+        # strip out invalid characters
+        recipe_name = remove_invalid_characters(recipe_name)
+        
         recipe_sql = "INSERT INTO recipes (name) VALUES ('{}');".format(recipe_name)
         select_recipe_ID = "SELECT recipes.ID from recipes where recipes.name = '{}';".format(recipe_name)
     
@@ -157,6 +174,11 @@ def directions(recipe_ID, direction_ID):
 @app.route("/edit_direction/<recipe_ID>/<direction_ID>/", methods = ["POST"])
 def edit_direction(recipe_ID, direction_ID):
     direction_text = request.form.get("direction_name")
+    
+    # strip out invalid characters and strip out any spaces at the start and end of the input
+    direction_text = remove_invalid_characters(direction_text)
+    direction_text = direction_text.strip()
+
     update_sql = "UPDATE directions SET name = '{}' WHERE directions.ID = {};".format(direction_text, direction_ID)
     update_data(update_sql)
     return redirect(url_for('recieps',
@@ -173,12 +195,16 @@ def add_direction(recipe_ID):
 @app.route("/add_new_direction/<recipe_ID>", methods = ["POST"])
 def add_new_direction(recipe_ID):
     direction_text = request.form.get("direction_name").strip()
-    
+    # Check if the user input is null
     if text_is_none(direction_text) == True:
         flash('You must enter some text')
         return redirect(url_for('recieps',
                             recipe_ID = recipe_ID))
     else:
+        # string out invalid character and blank spaces at the start and end
+        direction_text = remove_invalid_characters(direction_text)
+        direction_text = direction_text.strip()
+        
         update_sql = "INSERT INTO directions (recipes_ID, name) VALUES ({},'{}');".format(recipe_ID, direction_text)
         update_data(update_sql)
     return redirect(url_for('recieps',
@@ -208,11 +234,15 @@ def edit_ingredient(recipe_ID, ingredient_ID):
     ingredient_text = request.form.get("ingredients_name")
     ingredient_quantity = request.form.get("ingredient_quantity")
     ingredient_unit_of_measurement = request.form.get("ingredients_unit_of_measurement")
+    
+    #strip out invalid chatacters and strip out blank spaces at the start and end.
+    ingredient_text = remove_invalid_characters(ingredient_text)
+    ingredient_text = ingredient_text.strip()
+    
     update_sql = "UPDATE ingredients SET name = '{}', quantity = '{}', unit_of_measurement ='{}' WHERE ingredients.ID = {};".format(ingredient_text, ingredient_quantity, ingredient_unit_of_measurement, ingredient_ID)
     update_data(update_sql)
-    return redirect(url_for('ingredients',
-                            recipe_ID = recipe_ID,
-                            ingredient_ID = ingredient_ID))
+    return redirect(url_for('recieps',
+                            recipe_ID = recipe_ID))
 
 @app.route("/add_ingredient/<recipe_ID>/")
 def add_ingredient(recipe_ID):
@@ -227,12 +257,16 @@ def add_ingredient_to_recipe(recipe_ID):
     ingredient_text = request.form.get("ingredients_name")
     ingredient_quantity = request.form.get("ingredient_quantity")
     ingredient_unit_of_measurement = request.form.get("ingredients_unit_of_measurement")
-
+    # check if the string is null
     if text_is_none(ingredient_text) == True:
         flash('You must enter some text')
         return redirect(url_for("recieps", 
                                 recipe_ID = recipe_ID))
     else:
+        #strip out invalid chatacters and strip out blank spaces at the start and end.
+        ingredient_text = remove_invalid_characters(ingredient_text)
+        ingredient_text = ingredient_text.strip()
+        
         update_sql = "INSERT INTO ingredients (recipes_ID, name, quantity, unit_of_measurement) VALUES('{}','{}','{}','{}');".format(recipe_ID, ingredient_text, ingredient_quantity, ingredient_unit_of_measurement)
         update_data(update_sql)
 
@@ -266,10 +300,17 @@ def course (recipe_ID, course_ID):
 @app.route("/add_course_to_recipe/<recipe_ID>/<course_ID>/", methods = ["POST"])
 def add_course_to_recipe(recipe_ID, course_ID):
     course_to_add = request.form.get("selection")
-    course_update_sql = "INSERT INTO course (recipes_ID, name) VALUES ('{}','{}');".format(recipe_ID, course_to_add)
-    update_data(course_update_sql)
+    # check is the user input is null
+    if text_is_none(course_to_add) == True:
+        flash("You need to select a course from the list")
+        return redirect(url_for('recieps',
+                                recipe_ID = recipe_ID))
+    else:
+        course_update_sql = "INSERT INTO course (recipes_ID, name) VALUES ('{}','{}');".format(recipe_ID, course_to_add)
+        update_data(course_update_sql)
     
-    return redirect(url_for("recieps", recipe_ID = recipe_ID))
+    return redirect(url_for("recieps", 
+                            recipe_ID = recipe_ID))
 
 @app.route("/delete_course_from_recipe/<recipe_ID>/<course_ID>/")
 def delete_course_from_recipe(recipe_ID, course_ID):
@@ -290,11 +331,15 @@ def course_list():
 @app.route("/update_course_list/", methods = ["POST"])
 def update_course_list():
     course_list_name = request.form.get("course_list_name")
-    
+    # check if use input is null
     if text_is_none(course_list_name) == True:
         flash('You must enter some text')
         return redirect(url_for('course_list'))
     else:
+        # strip out invalid characters and stip out leading and ending spaces
+        course_list_name = remove_invalid_characters(course_list_name)
+        course_list_name = course_list_name.strip()
+        
         course_list_update_sql = "INSERT INTO course_list (course_id, name) VALUES ( 0, '" + course_list_name +"');"
         update_data(course_list_update_sql)
             
@@ -340,7 +385,7 @@ def cuisine (recipe_ID):
 @app.route("/add_cuisine_to_recipe/<recipe_ID>/", methods = ["POST"])
 def add_cuisine_to_recipe(recipe_ID):
     cuisine_to_add = request.form.get("selection")
-    
+    # check if the user input is null
     if text_is_none(cuisine_to_add) == True:
         flash('You must enter some text')
         return redirect(url_for("recieps", 
@@ -371,11 +416,16 @@ def cuisine_list():
 @app.route("/update_cuisine_list/", methods = ["POST"])
 def update_cuisine_list():
     cuisine_list_name = request.form.get("cuisine_list_name")
-        
+    
+    # check for a null value in the user input
     if text_is_none(cuisine_list_name) == True:
         flash('You must enter some text')
         return redirect(url_for('cuisine_list'))
     else:
+        # strip out invalid characters and stip out leading and ending spaces
+        cuisine_list_name = remove_invalid_characters(cuisine_list_name)
+        cuisine_list_name = cuisine_list_name.strip()
+        
         cuisine_list_update_sql = "INSERT INTO cuisine_list (cuisine_ID, name) VALUES ( 0, '" + cuisine_list_name +"');"
         update_data(cuisine_list_update_sql)
             
@@ -424,7 +474,7 @@ def new_allergen (recipe_ID):
 @app.route("/add_allergens_to_recipe/<recipe_ID>/", methods = ["POST"])
 def add_allergens_to_recipe(recipe_ID):
     allergens_to_add = request.form.get("selection")
-    
+    # check is the user input is null
     if text_is_none(allergens_to_add):
         flash('You must enter some text')
         return redirect(url_for("recieps", 
@@ -455,11 +505,15 @@ def allergens_list():
 @app.route("/update_allergens_list/", methods = ["POST"])
 def update_allergens_list():
     allergen_list_name = request.form.get("allergens_list_name")
-    
+     # check for a null value in the user input
     if text_is_none(allergen_list_name) == True:
         flash('You must enter some text')
         return redirect(url_for('allergens_list'))
     else:
+        # strip out invalid characters and strip out leading and ending spaces
+        allergen_list_name = remove_invalid_characters(allergen_list_name)
+        allergen_list_name = allergen_list_name.strip()
+        
         allergen_list_update_sql = "INSERT INTO allergens_list (allergens_id, name) VALUES ( 0, '" + allergen_list_name +"');"
         update_data(allergen_list_update_sql)
             

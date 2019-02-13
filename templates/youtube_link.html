@@ -1,0 +1,40 @@
+{% extends "base.html" %} {% block content %}
+
+<div class="container">
+    <div class="row">
+        <div class="col s12">
+
+            {% for row in recipe_data %}
+
+            <div class="row">
+                <div class="collection-header">
+                    <h5>{{ row.recipe_name }}</h5>
+                </div>
+                <div class="input-field col s10">
+                    {% if row.recipe_name %}
+                    <form action="{{ url_for('save_youtube_link', recipe_ID = recipe_ID) }}" method="POST">
+                        <textarea rows="40" cols="50" id="youtube_link_name" name="youtube_link_name" class="validate"> 
+                        {{ row.recipe_youtube_link }}
+                    </textarea>
+                        <label class="active" for="first_name2">YouTube Link</label>
+                        <input type="submit" class="btn" value="Save Change To YouTube Link" />
+                    </form>
+                    {% else %}
+                    <form action="" method="POST">
+                        <textarea rows="40" cols="50" id="youtube_link" name="youtube_link" class="validate"> 
+                    </textarea>
+                        <label class="active" for="first_name2">YouTube Link</label>
+                        <input type="submit" class="btn" value="Add New YouTube Link" />
+                    </form>
+                    {% endif %}
+                </div>
+            </div>
+
+            <a href="{{ url_for('delete_youtube_link', recipe_ID = recipe_ID) }}" class="btn">Delete YouTube Link</a>
+            <a href="{{url_for('recieps', recipe_ID = recipe_ID)}}" class="btn">Back</a> {% endfor %}
+
+        </div>
+    </div>
+</div>
+
+{% endblock %}

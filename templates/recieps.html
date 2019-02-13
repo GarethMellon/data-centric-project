@@ -12,11 +12,11 @@
                 </li>
                 {% if recipe.youtube_link: %}
                 <li class="collection-item">
-                    <div>{{ recipe.youtube_link }}<a href="#!" class="secondary-content"><i class="material-icons">edit</i></a></div>
+                    <div>{{ recipe.youtube_link }}<a href="{{ url_for('youtube_link', recipe_ID = recipe_ID) }}" class="secondary-content"><i class="material-icons">edit</i></a></div>
                 </li>
                 {% else %}
                 <li class="collection-item">
-                    <a href='#' class='btn'>Add YouTube Link</a>
+                    <a href="{{ url_for('youtube_link', recipe_ID = recipe_ID) }}" class='btn'>Add YouTube Link</a>
                 </li>
 
                 {% endif %}

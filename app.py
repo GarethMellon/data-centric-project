@@ -156,6 +156,40 @@ def new_recipe():
         update_data(course_sql)
     return redirect(url_for('recieps',
                             recipe_ID = recipe_ID[0]['ID'] ))
+                            
+@app.route("/youtube_link/<recipe_ID>")
+def youtube_link(recipe_ID):
+    sql = "select ID as recipe_ID, name as recipe_name, youtube_link as recipe_youtube_link from recipes WHERE recipes.ID = {};".format(recipe_ID)
+    recipe_data = select_data(sql)
+    
+    return render_template('youtube_link.html',
+                            recipe_data = recipe_data,
+                            recipe_ID = recipe_ID)
+                            
+@app.route("/save_youtube_link/<recipe_ID>", methods = ["POST"])
+def save_youtube_link(recipe_ID):
+    youtube_link = request.form.get('youtube_link_name')
+    # check if user entered a null 
+    if text_is_none(youtube_link) == True:
+        flash('You must enter some text')
+        return redirect(url_for('recieps',
+                                recipe_ID = recipe_ID))
+    else:
+        youtube_link = youtube_link.strip()
+        sql = "UPDATE recipes SET youtube_link = '{}' WHERE ID = {};".format(youtube_link, recipe_ID)
+        update_data(sql)
+        
+    return redirect(url_for('recieps',
+                            recipe_ID = recipe_ID))
+                            
+@app.route("/delete_youtube_link/<recipe_ID>")
+def delete_youtube_link(recipe_ID):
+    youtube_link = request.form.get('youtube_link_name')
+    sql = "UPDATE recipes SET youtube_link = '' WHERE ID = {};".format(recipe_ID)
+    update_data(sql)
+        
+    return redirect(url_for('recieps',
+                            recipe_ID = recipe_ID))
     
 ## Routes to add edit and delete recieps
 

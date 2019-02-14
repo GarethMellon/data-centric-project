@@ -7,7 +7,7 @@
             {% for row in recipe_data %}
 
             <div class="row">
-                <div class="collection-header">
+                <div class="collection-header collection-header-sub">
                     <h5>{{ row.recipe_name }}</h5>
                 </div>
                 <div class="input-field col s10">
@@ -23,15 +23,19 @@
                     <form action="" method="POST">
                         <textarea rows="40" cols="50" id="youtube_link" name="youtube_link" class="validate"> 
                     </textarea>
-                        <label class="active" for="first_name2">YouTube Link</label>
+                        <label class="active sub-label" for="first_name2">YouTube Link</label>
                         <input type="submit" class="btn" value="Add New YouTube Link" />
                     </form>
                     {% endif %}
                 </div>
             </div>
 
-            <a href="{{ url_for('delete_youtube_link', recipe_ID = recipe_ID) }}" class="btn">Delete YouTube Link</a>
-            <a href="{{url_for('recieps', recipe_ID = recipe_ID)}}" class="btn">Back</a> {% endfor %}
+            <div class="row sub-footer">
+                <a href="{{ url_for('delete_youtube_link', recipe_ID = recipe_ID) }}" class="btn">Delete YouTube Link</a>
+                <a href="{{url_for('recieps', recipe_ID = recipe_ID)}}" class="btn">Back To Recieps</a>
+
+            </div>
+            {% endfor %}
 
         </div>
     </div>

@@ -40,7 +40,15 @@
         <li>{{ message }}</li>
         {% endfor %}
     </ul>
-    {% endif %} {% endwith %} {% block body %}{% endblock %} {% block content %} {% endblock %}
+    {% endif %} {% endwith %} {% block body %}{% endblock %} 
+    
+    <div class=" col s12">
+        <div class="row container-position">
+            {% block content %} {% endblock %}
+        </div>
+    </div>
+    
+    
 
     <!-- footer for all pages -->
     <footer class="page-footer">

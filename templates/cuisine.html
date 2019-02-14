@@ -8,12 +8,12 @@
             {% if cuisine_data: %}
             <div class="row">
                 <ul class="collection with-header">
-                    <li class="collection-header">
-                        <h4> {{ cuisine_data[0].recipe_name }} </h4>
+                    <li class="collection-header collection-header-sub">
+                        <h5> {{ cuisine_data[0].recipe_name }} </h5>
                     </li>
                     {% for row in cuisine_data %}
-                    <li class="collection-item">
-                        <div> {{row.cuisine_name}} <a href="{{ url_for('delete_cuisine_from_recipe', recipe_ID = row.recipe_ID, cuisine_ID = row.cuisine_ID) }}" class="secondary-content"><i class = "material-icons">delete</i></a></div>
+                    <li class="collection-item collection-item-sub">
+                        <div> {{row.cuisine_name}} <a href="{{ url_for('delete_cuisine_from_recipe', recipe_ID = row.recipe_ID, cuisine_ID = row.cuisine_ID) }}" class="secondary-content"><i class = "material-icons icon-color">delete</i></a></div>
                     </li>
                     {% endfor %}
                 </ul>
@@ -45,7 +45,7 @@
                 <div class="row">
                     <form action="{{ url_for('add_cuisine_to_recipe', recipe_ID = recipe.recipe_ID) }}" method="POST">
                         <select id="selection" name="selection">
-                            <option value = "" disabled selected>Select New Cuisine</option> 
+                            <option class = "selector" value = "" disabled selected>Select New Cuisine</option> 
                             {% for row in cuisine_list_data %}
                                 <option value = "{{row.cuisine_list_name}}" id="cuisine_name" name="cuisine_name">{{row.cuisine_list_name}}</option>
                             {% endfor %}
@@ -53,12 +53,12 @@
                         <input type="submit" value="Add New Cuisine" class="btn">
                 </div>
             </div>
-            {% endfor %} {% endif %} 
-            
+            {% endfor %} {% endif %}
+
             <!-- draw a back button -->
             <div class="row">
                 <div class="col s12">
-                    <div class="row">
+                    <div class="row sub-footer">
                         <a href="{{url_for('recieps', recipe_ID = recipe_ID ) }}" class="btn">Back To Recipe</a>
                     </div>
                 </div>

@@ -2,8 +2,122 @@
     display: flex;
     min-height: 100vh;
     flex-direction: column;
+    background-image: url('/static/background/food_image.jpg');
+    background-repeat: no-repeat;
+    background-size: cover
   }
 
   main {
     flex: 1 0 auto;
   }
+
+  /* home page */
+
+  nav,
+  footer,
+  .page-footer {
+    background-color: #002f6c;
+  }
+
+  .container-position {
+    margin-top: 150px;
+  }
+
+  .collapsible-background,
+  textarea,
+  input {
+    background-color: #f4f4f4;
+  }
+
+  .sub-footer {
+    text-align: center;
+  }
+
+  /* button styles */
+
+  .btn {
+    background-color: #f9a825;
+  }
+
+  .icon-color {
+    color: #f9a825;
+  }
+
+  .icon-color:hover {
+    transition: .2s ease-out;
+    color: #26a69a;
+
+  }
+
+
+  .btn-recipe {
+    float: right;
+  }
+
+  .btn-new-recipe {
+    text-align: center;
+    width: 300px;
+  }
+
+  /* general headings colours*/
+
+  .collection-header-sub,
+  .collection-item-sub {
+    background-color: #f4f4f4;
+    text-align: center;
+    width: 80%;
+    border-radius: 10px;
+    margin: auto;
+    margin-top: 5px;
+  }
+
+  li {
+    margin: auto;
+    margin-top: 5px;
+  }
+
+
+
+  /* sub forms */
+
+  form {
+    text-align: center;
+    margin-bottom: 50px;
+  }
+
+  textarea {
+    width: 80%;
+    text-align: left;
+  }
+
+  label {
+    visibility: hidden;
+  }
+
+  .ingredients_text {
+    background-color: #f4f4f4;
+    text-align: center;
+    border-radius: 10px;
+  }
+
+  textarea {
+    height: 150px
+  }
+
+  ul,
+  .collection {
+    border: 0px
+  }
+
+  .selector,
+  .select-wrapper {
+    background: #f4f4f4;
+  }
+
+  .ingredient {
+    background: #f4f4f4;
+    border-radius: 10px;
+    margin: 0 20px 0 20px;
+    width: 30%;
+  }
+  

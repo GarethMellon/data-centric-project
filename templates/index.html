@@ -4,14 +4,14 @@
     <div class="row">
         <div class="col s12">
             <!-- we are matching courses to their recipes and building the recipes accordion by match -->
-            <ul class="collapsible popout" data-collapsible="accordion">
+            <ul class="collapsible collapsible-background" data-collapsible="accordion">
                 {% for course in course_data %}
                 <li>
                     <div class="collapsible-header"><i class="material-icons">fastfood</i> {{ course.course_name }} </div>
 
                     {% for recipe in recipes_data %} {% if course.course_name == recipe.course_name: %}
-                    <div class="collapsible-body"><span>{{ recipe.recipes_name }}</span>
-                        <a href="{{ url_for('recieps', recipe_ID = recipe.recipes_ID) }}" class="btn"> View Recipe</a>
+                    <div class="collapsible-body collapsible-background"><span>{{ recipe.recipes_name }}</span>
+                        <a href="{{ url_for('recieps', recipe_ID = recipe.recipes_ID) }}" class="btn btn-recipe"> View Recipe</a>
                     </div>
                     {% else %} {% endif %} {% endfor %}
 
@@ -24,7 +24,7 @@
 
             <div id="modal1" class="modal bottom-sheet">
                 <div class="modal-content">
-                    <form action = "{{url_for('new_recipe')}}" method = "POST">
+                    <form action="{{url_for('new_recipe')}}" method="POST">
                         <label for="recipe_name"> Recipe Name</label>
                         <input type="text" name="recipe_name" name="recipe_name" />
 
@@ -34,8 +34,10 @@
                                 <option value = "{{row.course_list_name}}" id="course_name" name="course_name">{{row.course_list_name}}</option>
                             {% endfor %}
                         </select>
+                        <div class="row sub-footer">
+                            <input class="btn btn-new-recipe" type="submit" value="Add New Recipe" />
+                        </div>
 
-                        <input class="btn" type="submit" value="Add New Recipe" />
                     </form>
                 </div>
             </div>

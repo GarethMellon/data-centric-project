@@ -13,3 +13,6 @@ Wireframes built in Balsamiq.
 
 Located in static/planning/database
 DB Schema built in https://www.dbdesigner.net/designer
+
+# backgroundimage taken from
+https://www.inc.com/karen-schrier/4-brilliant-ideas-you-should-steal-from-food-industry.html

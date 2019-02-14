@@ -7,7 +7,7 @@
             {% for row in directions_data %}
 
             <div class="row">
-                <div class="collection-header">
+                <div class="collection-header collection-header-sub">
                     <h5>{{ row.recipe_name }}</h5>
                 </div>
                 <div class="input-field col s10">
@@ -30,8 +30,11 @@
                 </div>
             </div>
 
-            <a href="{{url_for('delete_direction_from_recipe', recipe_ID = row.recipe_ID, direction_ID = row.direction_ID)}}" class="btn">Delete Direction</a>
-            <a href="{{url_for('recieps', recipe_ID = row.recipe_ID)}}" class="btn">Back</a> {% endfor %}
+            <div class="row sub-footer">
+                <a href="{{url_for('delete_direction_from_recipe', recipe_ID = row.recipe_ID, direction_ID = row.direction_ID)}}" class="btn">Delete Direction</a>
+                <a href="{{url_for('recieps', recipe_ID = row.recipe_ID)}}" class="btn">Back To Recieps</a>
+            </div>
+            {% endfor %}
 
         </div>
     </div>

@@ -90,7 +90,7 @@ def index():
     course_list_data = select_data(course_list_sql)
     
     return render_template("index.html",
-                            page_title="Welcome to you're cooking recieps",
+                            page_title="Welcome To Cooking Recieps",
                             course_data = course_data,
                             recipes_data = recipes_data,
                             course_list_data = course_list_data)
@@ -181,6 +181,7 @@ def youtube_link(recipe_ID):
     recipe_data = select_data(sql)
     
     return render_template('youtube_link.html',
+                            page_title = "YouTube Link",
                             recipe_data = recipe_data,
                             recipe_ID = recipe_ID)
                             
@@ -219,7 +220,7 @@ def directions(recipe_ID, direction_ID):
     directions_data = select_data(directions_sql)
     
     return render_template("directions.html", 
-                            page_title="Directions",
+                            page_title="Edit Directions",
                             directions_data = directions_data)
 
 ## Routes to add edit and delete directions                            
@@ -277,7 +278,7 @@ def ingredients(recipe_ID, ingredient_ID):
     ingredient_data = select_data(ingredients_sql)
     
     return render_template("ingredients.html", 
-                        page_title="Ingredients",
+                        page_title="Edit Ingredients",
                         ingredient_data = ingredient_data)
 
 ## Routes to add edit and delete ingredients 
@@ -344,7 +345,7 @@ def course (recipe_ID, course_ID):
     course_list_data = select_data(course_list_sql)
     
     return render_template("course.html",
-                            page_title = "Courses",
+                            page_title = "Edit Courses",
                             course_data = course_data,
                             course_list_data = course_list_data)
 
@@ -415,7 +416,7 @@ def new_cuisine (recipe_ID):
     cuisine_list_data = select_data(cuisine_list_sql)
     
     return render_template("cuisine.html",
-                            page_title = "cuisine",
+                            page_title = "New Cuisine",
                             cuisine_list_data = cuisine_list_data,
                             recipes_data = recipes_data, recipe_ID = recipe_ID)
 
@@ -429,7 +430,7 @@ def cuisine (recipe_ID):
     cuisine_list_data = select_data(cuisine_list_sql)
     
     return render_template("cuisine.html",
-                            page_title = "cuisine",
+                            page_title = "Edit Cuisine",
                             cuisine_data = cuisine_data,
                             cuisine_list_data = cuisine_list_data, recipe_ID = recipe_ID)
 
@@ -501,7 +502,7 @@ def allergens (recipe_ID):
     allergens_list_data = select_data(allergens_list_sql)
     
     return render_template("allergens.html",
-                            page_title = "Allergens",
+                            page_title = "Edit Allergens",
                             allergens_data = allergens_data,
                             allergens_list_data = allergens_list_data,
                             recipe_ID = recipe_ID)
@@ -518,7 +519,7 @@ def new_allergen (recipe_ID):
     allergens_list_data = select_data(allergens_list_sql)
     
     return render_template("allergens.html",
-                            page_title = "Allergens",
+                            page_title = "New Allergens",
                             recipes_data = recipes_data,
                             allergens_list_data = allergens_list_data, 
                             recipe_ID = recipe_ID)

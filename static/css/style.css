@@ -11,6 +11,18 @@
     flex: 1 0 auto;
   }
 
+  /* flashes */
+
+  .flashes {
+    background: #f44336;
+    color: #f4f4f4;
+    width: 60%;
+    text-align: center;
+    margin: auto;
+    border-radius: 10px;
+    margin-top: 10px;
+  }
+
   /* home page */
 
   nav,
@@ -60,7 +72,7 @@
   }
 
   /* general headings colours*/
-  
+
   .set_youtube {
     text-align: center;
   }
@@ -126,3 +138,4 @@
     width: auto;
     text-align: center;
   }
+  

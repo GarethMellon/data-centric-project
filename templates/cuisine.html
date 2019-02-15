@@ -19,7 +19,7 @@
                 </ul>
             </div>
 
-            <div class="col s5">
+            <div class="col s12 input-selector">
                 <div class="row">
                     <form action="{{ url_for('add_cuisine_to_recipe', recipe_ID = cuisine_data[0].recipe_ID, cuisine_ID = cuisine_data[0].cuisine_ID) }}" method="POST">
 
@@ -41,7 +41,7 @@
                     </li>
                 </ul>
             </div>
-            <div class="col s5">
+            <div class="col s12 input-selector">
                 <div class="row">
                     <form action="{{ url_for('add_cuisine_to_recipe', recipe_ID = recipe.recipe_ID) }}" method="POST">
                         <select id="selection" name="selection">

@@ -65,7 +65,6 @@
   .collection-item-sub {
     background-color: #f4f4f4;
     text-align: center;
-    width: 80%;
     border-radius: 10px;
     margin: auto;
     margin-top: 5px;
@@ -75,8 +74,6 @@
     margin: auto;
     margin-top: 5px;
   }
-
-
 
   /* sub forms */
 
@@ -120,4 +117,8 @@
     margin: 0 20px 0 20px;
     width: 30%;
   }
-  
+
+  .input-style {
+    width: auto;
+    text-align: center;
+  }

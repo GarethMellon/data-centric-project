@@ -10,7 +10,7 @@
                 <div class="collection-header collection-header-sub">
                     <h5>{{ row.recipe_name }}</h5>
                 </div>
-                <div class="input-field col s10">
+                <div class="input-field input-style">
                     {% if row.direction_name %}
                     <form action="{{ url_for('edit_direction', recipe_ID = row.recipe_ID , direction_ID = row.direction_ID ) }}" method="POST">
                         <textarea rows="40" cols="50" id="direction_name" name="direction_name" class="validate"> 

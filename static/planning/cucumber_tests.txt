@@ -1,0 +1,112 @@
+AS a user
+AND I on on the homepage
+WHEN I add click on the ADD NEW RECIPE button 
+AND I enter recipe name
+AND I select a course
+AND Click on ADD NEW RECIPE
+THEN we will create a new recipe
+
+AS a user
+AND I create a new recipe
+WHEN I add a youtube link
+THEN I should see a video preview on the recipe page
+
+AS a user
+AND I create a new recipe
+WHEN I add a new direction
+THEN I should see the direction on the recipe page
+
+AS a user
+AND I create a new recipe
+WHEN I add a new Ingredient
+THEN I should see the Ingredient on the recipe page
+
+AS a user
+AND I create a new recipe
+WHEN I add a new Cuisine
+THEN I should see the cuisine on the recipe page
+
+AS a user
+AND I create a new recipe
+WHEN I add a new allergy
+THEN I should see the allergy on the recipe page
+
+AS a user
+AND I open a recipe
+WHEN Edit a direction
+THEN I should see the update direction on the recipe page
+
+AS a user
+AND I open a recipe
+WHEN Edit an Ingredient
+THEN I should see the update Ingredient on the recipe page
+
+AS a user
+AND I open a recipe
+WHEN Edit a Cuisine
+THEN I should see the update Cuisine on the recipe page
+
+AS a user
+AND I open a recipe
+WHEN Edit an Course
+THEN I should see the update Course on the recipe page
+
+AS a user
+AND I open a recipe
+WHEN Edit an Allergy
+THEN I should see the update Allergy on the recipe page
+
+AS a user
+AND I open a recipe
+WHEN Delete a direction
+THEN I should see direction removed from the recipe page
+
+AS a user
+AND I open a recipe
+WHEN Delete an Ingredient
+THEN I should see Ingredient removed from the recipe page
+
+AS a user
+AND I open a recipe
+WHEN Delete a Cuisine
+THEN I should see Cuisine removed from the recipe page
+
+AS a user
+AND I open a recipe
+WHEN Delete a Course
+THEN I should see Course removed from the recipe page
+
+AS a user
+AND I open a recipe
+WHEN Delete a Allergy
+THEN I should see Allergy removed from the recipe page
+
+AS a user
+And i open the Allergens List
+WHEN I add an allergen to the list
+THEN I will see the new allergen
+
+AS a user
+And i open the Course List
+WHEN I add a course to the list
+THEN I will see the new course
+
+AS a user
+And i open the Cuisine List
+WHEN I add a Cuisine to the list
+THEN I will see the new Cuisine
+
+AS a user
+And i open the Allergens List
+WHEN I delete an allergen to the list
+THEN I will see the allergen removed from the list
+
+AS a user
+And i open the Course List
+WHEN I delete an Course to the list
+THEN I will see the Course removed from the list
+
+AS a user
+And i open the Cuisine List
+WHEN I delete an Cuisine to the list
+THEN I will see the Cuisine removed from the list

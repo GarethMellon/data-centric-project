@@ -60,6 +60,18 @@ def text_is_none(text):
         return True
     else:
         return False
+        
+        
+"""
+Function to parase a youtube link so we can embed it on the page
+"""
+def parse_youtube_url(url):
+    if url:
+        url = url[0]['youtube_link']
+        url = url.replace('https://www.youtube.com/watch?v=','https://www.youtube.com/embed/')
+        return url
+    else:
+        return url
 
 """
 All pages route and functions below
@@ -105,6 +117,11 @@ def recieps(recipe_ID):
     allergens_sql = ("SELECT * FROM allergens WHERE recipes_ID =" + recipe_ID + " AND allergens.delete = '0';")
     allergens_data = select_data(allergens_sql)
     
+    #get and parse youtube link for the UI
+    youtube_link_sql = ("SELECT youtube_link FROM recipes WHERE recipes.ID =" + recipe_ID + " AND recipes.delete = '0';")
+    youtube_link = select_data(youtube_link_sql)
+    youtube_link = parse_youtube_url(youtube_link)
+    
     return render_template("recieps.html",
                             page_title="Edit Recipe",
                             recipes_data = recipes_data,
@@ -113,7 +130,8 @@ def recieps(recipe_ID):
                             cuisine_data = cuisine_data,
                             course_data = course_data,
                             allergens_data = allergens_data,
-                            recipe_ID = recipe_ID)
+                            recipe_ID = recipe_ID,
+                            youtube_link = youtube_link)
                             
 @app.route("/delete_recipe/<recipe_ID>/")
 def delete_recipe(recipe_ID):

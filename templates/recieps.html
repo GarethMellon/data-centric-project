@@ -11,8 +11,12 @@
                     <h4>{{ recipe.name }}</h4>
                 </li>
                 {% if recipe.youtube_link: %}
-                <li class="collection-item">
-                    <div>{{ recipe.youtube_link }}<a href="{{ url_for('youtube_link', recipe_ID = recipe_ID) }}" class="secondary-content"><i class="material-icons icon-color">edit</i></a></div>
+                <li class="collection-item set_youtube">
+                    {% if youtube_link: %}
+                    <iframe width="280" height="155" src="{{ youtube_link }}" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen>
+                    </iframe> {% else %}
+                    <div><a href="{{ url_for('youtube_link', recipe_ID = recipe_ID) }}" class="secondary-content"><i class="material-icons icon-color">edit</i></a></div>
+                    {% endif %}
                 </li>
                 {% else %}
                 <li class="collection-item">

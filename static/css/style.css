@@ -60,6 +60,10 @@
   }
 
   /* general headings colours*/
+  
+  .set_youtube {
+    text-align: center;
+  }
 
   .collection-header-sub,
   .collection-item-sub {

@@ -12,10 +12,19 @@ Function to select data from mysql.
 Pass in sql as string and will result the data as a list
 """
 def select_data(sql):
+    #localhost connection
+    """
     connection = pymysql.connect(host = "localhost",
                             user = username,
                             password = "",
                             db = "recipes")
+    """
+    # Heroku / ClearDB connection
+    connection = pymysql.connect(host = 'eu-cdbr-west-02.cleardb.net',
+                                db = 'heroku_da99daf1f492997',
+                                user = "b7185d11cb25b9",
+                                password = '110588d0')
+    
     try:
         with connection.cursor(pymysql.cursors.DictCursor) as cursor:
             cursor.execute(sql)
@@ -25,10 +34,18 @@ def select_data(sql):
         connection.close()
         
 def update_data(sql):
+    #localhost connection
+    """
     connection = pymysql.connect(host = "localhost",
                             user = username,
                             password = "",
                             db = "recipes")
+    """
+    # Heroku / ClearDB connection
+    connection = pymysql.connect(host = 'eu-cdbr-west-02.cleardb.net',
+                                db = 'heroku_da99daf1f492997',
+                                user = "b7185d11cb25b9",
+                                password = '110588d0')
     try:
         with connection.cursor(pymysql.cursors.DictCursor) as cursor:
             cursor.execute(sql)

@@ -13,7 +13,7 @@
                     </li>
                     {% for row in allergens_data %}
                     <li class="collection-item collection-item-sub">
-                        <div> {{row.allergens_name}} <a href="{{ url_for('delete_allergens_from_recipe', recipe_ID = row.recipe_ID, allergens_ID = row.allergens_ID) }}" class="secondary-content"><i class = "material-icons">delete</i></a></div>
+                        <div> {{row.allergens_name}} <a href="{{ url_for('delete_allergens_from_recipe', recipe_ID = row.recipe_ID, allergens_ID = row.allergens_ID) }}" class="secondary-content"><i class = "material-icons icon-color">delete</i></a></div>
                     </li>
                     {% endfor %}
                 </ul>

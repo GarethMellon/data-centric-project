@@ -17,3 +17,9 @@ https://www.inc.com/karen-schrier/4-brilliant-ideas-you-should-steal-from-food-i
 
 # Colour Picker
 https://material.io/tools/color/#!/?view.left=0&view.right=0&primary.color=01579B&secondary.color=F9A825
+
+# ClearDB
+https://w2.cleardb.net/
+
+# MySql WorkBench
+https://www.mysql.com/products/workbench/

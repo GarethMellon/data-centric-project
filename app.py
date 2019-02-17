@@ -78,7 +78,6 @@ def text_is_none(text):
     else:
         return False
         
-        
 """
 Function to parase a youtube link so we can embed it on the page
 """
@@ -137,7 +136,8 @@ def recieps(recipe_ID):
     #get and parse youtube link for the UI
     youtube_link_sql = ("SELECT youtube_link FROM recipes WHERE recipes.ID =" + recipe_ID + " AND recipes.delete = '0';")
     youtube_link = select_data(youtube_link_sql)
-    youtube_link = parse_youtube_url(youtube_link)
+    if not youtube_link:
+        youtube_link = parse_youtube_url(youtube_link)
     
     return render_template("recieps.html",
                             page_title="Edit Recipe",

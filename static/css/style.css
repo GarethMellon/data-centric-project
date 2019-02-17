@@ -41,6 +41,10 @@
     background-color: #f4f4f4;
   }
 
+  .collapsible-body a {
+    color: rgba(0, 0, 0, 0.87);
+  }
+
   .sub-footer {
     text-align: center;
   }
@@ -70,6 +74,24 @@
     text-align: center;
     width: 300px;
   }
+
+  /* tag styles */
+
+  h4,
+  h5,
+  h6 {
+    display: inline;
+  }
+
+  /* recipe page text and button fix */
+
+  .collection-item div {
+    width: 85%;
+    margin: 0;
+    padding: 0;
+    display: inline-block;
+  }
+
 
   /* general headings colours*/
 

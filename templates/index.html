@@ -10,8 +10,9 @@
                     <div class="collapsible-header"><i class="material-icons">fastfood</i> {{ course.course_name }} </div>
 
                     {% for recipe in recipes_data %} {% if course.course_name == recipe.course_name: %}
-                    <div class="collapsible-body collapsible-background"><span>{{ recipe.recipes_name }}</span>
-                        <a href="{{ url_for('recieps', recipe_ID = recipe.recipes_ID) }}" class="btn btn-recipe"> View Recipe</a>
+                    <div class="collapsible-body collapsible-background">
+                        <i class="material-icons">open_in_browser</i>
+                        <a href="{{ url_for('recieps', recipe_ID = recipe.recipes_ID) }}" class="">{{ recipe.recipes_name }}</a>
                     </div>
                     {% else %} {% endif %} {% endfor %}
 

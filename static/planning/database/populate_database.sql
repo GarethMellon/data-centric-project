@@ -143,7 +143,7 @@ INSERT INTO ingredients (recipes_id, name,quantity,unit_of_measurement)
 VALUES (1,"Milk","1","Cup");
 
 INSERT INTO ingredients (recipes_id, name,quantity)
-VALUES (1,"Egg","1",);
+VALUES (1,"Egg","1");
 
 INSERT INTO ingredients (recipes_id, name,quantity,unit_of_measurement)
 VALUES (1,"Vegtable Oil","2","tablespoons");
@@ -176,7 +176,7 @@ INSERT INTO ingredients (recipes_id, name,quantity,unit_of_measurement)
 VALUES (2,"Salt","1","Pinch");
 
 INSERT INTO ingredients (recipes_id, name,quantity)
-VALUES (2,"Eggs","3",);
+VALUES (2,"Eggs","3");
 
 INSERT INTO ingredients (recipes_id, name,quantity,unit_of_measurement)
 VALUES (2,"Ground Cinnamon","1/2","Teaspoon");

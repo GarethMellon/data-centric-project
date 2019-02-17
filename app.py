@@ -58,7 +58,7 @@ Pass in a string of text (as text) and uses list of invalid characters.
 Returns the text with the invalid character striped out.
 """
 def remove_invalid_characters(text):
-    invalid_character_set = ['!','"','$','%','^','&','*','{','}',']','[','~','#',':',';',"'",'~','/','?','>','<',"\\",'|']
+    invalid_character_set = ['!','"','$','%','^','&','*','{','}',']','[','~','#',':',';',"'",'~','?','>','<',"\\",'|']
     num = 0 
     while num < len(invalid_character_set):
         if invalid_character_set[num] in text:
@@ -82,12 +82,12 @@ def text_is_none(text):
 Function to parase a youtube link so we can embed it on the page
 """
 def parse_youtube_url(url):
+    url = url[0]['youtube_link']
     if url:
-        url = url[0]['youtube_link']
         url = url.replace('https://www.youtube.com/watch?v=','https://www.youtube.com/embed/')
         return url
     else:
-        return url
+        return None
 
 """
 All pages route and functions below
@@ -136,8 +136,11 @@ def recieps(recipe_ID):
     #get and parse youtube link for the UI
     youtube_link_sql = ("SELECT youtube_link FROM recipes WHERE recipes.ID =" + recipe_ID + " AND recipes.delete = '0';")
     youtube_link = select_data(youtube_link_sql)
-    if not youtube_link:
+    print('youtube_link: {}').format(youtube_link)
+    if youtube_link :
         youtube_link = parse_youtube_url(youtube_link)
+    else:
+        youtube_link = None
     
     return render_template("recieps.html",
                             page_title="Edit Recipe",
@@ -182,7 +185,7 @@ def new_recipe():
         # strip out invalid characters
         recipe_name = remove_invalid_characters(recipe_name)
         
-        recipe_sql = "INSERT INTO recipes (name) VALUES ('{}');".format(recipe_name)
+        recipe_sql = "INSERT INTO recipes (name, youtube_link) VALUES ('{}','{}');".format(recipe_name, '' )
         select_recipe_ID = "SELECT recipes.ID from recipes where recipes.name = '{}';".format(recipe_name)
     
         update_data(recipe_sql)

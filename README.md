@@ -43,8 +43,11 @@ Most pages are a single column design.  UI works on mobile and ipad (tested in c
 - add the ability to rank recipes and mark a favorite
 - UI automation via cucumber
 
-## Technologies Used
+### Current Bugs
+- BUg where sometimes when creating a new recipe, no recipes loads. Only workaround for now is to delete and try again with a different recipe name
 
+
+## Technologies Used
 
 - [html](https://jquery.com)
 

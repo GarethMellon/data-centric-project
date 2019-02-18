@@ -33,7 +33,7 @@
                 {% for direction in directions_data %} {% if recipe.ID == direction.recipes_ID: %}
 
                 <li class="collection-item">
-                    <div>Direction {{ loop.index }} : {{ direction.name }}</div>
+                    <div><strong>Direction {{ loop.index }} :</strong> <span>{{ direction.name }}</span></div>
                     <a href="{{url_for('directions', recipe_ID = recipe.ID, direction_ID = direction.ID)}}" class="secondary-content"></span><i class="material-icons icon-color">edit</i></a>
                 </li>
 
@@ -48,7 +48,7 @@
                 {% for ingredient in ingredients_data %} {% if recipe.ID == ingredient.recipes_ID: %}
 
                 <li class="collection-item">
-                    <div>Ingredient {{ loop.index }} : {{ ingredient.name }} {{ ingredient.quantity }} {{ ingredient.unit_of_measurement }}</div>
+                    <div><strong>Ingredient {{ loop.index }} :</strong> <span>{{ ingredient.name }} {{ ingredient.quantity }} {{ ingredient.unit_of_measurement }}</span></div>
                     <a href="{{url_for('ingredients', recipe_ID = recipe.ID, ingredient_ID = ingredient.ID)}}" class="secondary-content"><i class="material-icons icon-color">edit</i></a>
                 </li>
                 {% endif %} {% endfor %}
@@ -98,7 +98,7 @@
                 {% if allergens_data %} {% for allergen in allergens_data %} {% if recipe.ID == allergen.recipes_ID: %}
 
                 <li class="collection-item">
-                    <div>Allergies : {{ allergen.name }}</div>
+                    <div>{{ allergen.name }}</div>
                     <a href="{{url_for('allergens', recipe_ID = recipe.ID, allergens_ID = allergen.ID)}}" class="secondary-content icon-color"><i class="material-icons">edit</i></a>
                 </li>
                 {% endif %} {% endfor %} {% else %}

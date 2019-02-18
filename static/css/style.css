@@ -35,6 +35,10 @@
     margin-top: 150px;
   }
 
+  .btn-homepage {
+    width: 100%;
+  }
+
   .collapsible-background,
   textarea,
   input {
@@ -75,6 +79,13 @@
     width: 300px;
   }
 
+  .btn-small {
+    float: right;
+    font-size: smaller;
+    padding-left: 10px;
+    padding-right: 10px;
+  }
+
   /* tag styles */
 
   h4,
@@ -97,6 +108,10 @@
 
   .set_youtube {
     text-align: center;
+  }
+
+  .collection-header {
+    height: 60px;
   }
 
   .collection-header-sub,
@@ -152,8 +167,13 @@
   .ingredient {
     background: #f4f4f4;
     border-radius: 10px;
-    margin: 0 20px 0 20px;
+    margin: 20px 20px 20px 20px;
     width: 30%;
+  }
+
+  .ingredient-row {
+    text-align: center;
+    margin: auto;
   }
 
   .input-style {

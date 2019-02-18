@@ -11,8 +11,9 @@
 
                     {% for recipe in recipes_data %} {% if course.course_name == recipe.course_name: %}
                     <div class="collapsible-body collapsible-background">
-                        <i class="material-icons">open_in_browser</i>
-                        <a href="{{ url_for('recieps', recipe_ID = recipe.recipes_ID) }}" class="">{{ recipe.recipes_name }}</a>
+                        <a href="{{ url_for('recieps', recipe_ID = recipe.recipes_ID) }}" class="btn btn-homepage">
+                            {{ recipe.recipes_name }}
+                        </a>
                     </div>
                     {% else %} {% endif %} {% endfor %}
 

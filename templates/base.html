@@ -40,15 +40,15 @@
         <li>{{ message }}</li>
         {% endfor %}
     </ul>
-    {% endif %} {% endwith %} {% block body %}{% endblock %} 
-    
+    {% endif %} {% endwith %} {% block body %}{% endblock %}
+
     <div class=" col s12">
         <div class="row container-position">
             {% block content %} {% endblock %}
         </div>
     </div>
-    
-    
+
+
 
     <!-- footer for all pages -->
     <footer class="page-footer">
@@ -58,7 +58,6 @@
                     <p class="grey-text text-lighten-4">You can use this website to keep track of all your cooking recipes</p>
                 </div>
                 <div class="col l4 offset-l2 s12">
-                    <h5 class="white-text">Links</h5>
                     <ul>
                         <li><a class="grey-text text-lighten-3" href="{{url_for('index')}}">Home</a></li>
                         <li><a class="grey-text text-lighten-3" href="{{url_for('allergens_list')}}">Allergens List</a></li>

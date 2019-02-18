@@ -136,7 +136,6 @@ def recieps(recipe_ID):
     #get and parse youtube link for the UI
     youtube_link_sql = ("SELECT youtube_link FROM recipes WHERE recipes.ID =" + recipe_ID + " AND recipes.delete = '0';")
     youtube_link = select_data(youtube_link_sql)
-    print('youtube_link: {}').format(youtube_link)
     if youtube_link :
         youtube_link = parse_youtube_url(youtube_link)
     else:
@@ -602,4 +601,4 @@ def delete_allergens_list(allergens_list_ID):
 if __name__ == '__main__':
     app.run(host=os.environ.get('IP'),
         port=int(os.environ.get('PORT')),
-        debug=True)
+        debug=False)

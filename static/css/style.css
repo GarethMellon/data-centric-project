@@ -94,7 +94,15 @@
     display: inline;
   }
 
-  /* recipe page text and button fix */
+  /* recipe page style fixes */
+
+  .collection-header {
+    min-height: 100px;
+  }
+
+  .collection-item {
+    min-height: 60px;
+  }
 
   .collection-item div {
     width: 85%;
